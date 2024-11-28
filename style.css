@@ -2,3 +2,35 @@
 *{
     font-family: "Quicksand", sans-serif;
 }
+/*krahjeta*/
+.home{
+background-color: slategray;
+width: 100%;
+min-height: 100vh;
+position: relative;
+background: url(C:\Users\Krahjeta\Desktop\projektPNG\Porsche-911.png);
+background-repeat: no-repeat;
+background-position: center right;
+background-size: cover;
+display: grid;
+align-items: center;
+grid-column: reapet(2,1fr);
+}
+.text h1{
+    font-size: 3.5rem;
+    letter-spacing: 2px;
+}
+.text span {
+    color: var(--main-color);
+}
+.text p{
+    margin: 00.5rem 0 1rem;
+}
+.app-stores{
+    display: flex;
+}
+.app-stores img{
+    width: 100px ;
+    margin-right: 1rem;
+    cursor: pointer;
+}

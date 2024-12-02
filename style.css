@@ -101,7 +101,7 @@ background-position: center right;
 background-size: cover;
 display: grid;
 align-items: center;
-grid-column: reapet(2,1fr);
+grid-column: repeat(2,1fr);
 }
 .text h1{
     font-size: 3.5rem;
@@ -120,4 +120,34 @@ grid-column: reapet(2,1fr);
     width: 100px ;
     margin-right: 1rem;
     cursor: pointer;
+}
+
+/*elzaabout*/
+.about-container{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 2rem;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+.about-img img{
+    width: 100%;
+}
+.about-text span{
+    font-weight: 500;
+    color: var(--main-color);
+    text-transform: uppercase;
+}
+.about-text p{
+    margin: 0.5rem 0 1.4rem;
+}
+.about-text .btn{
+    padding: 10px 20px;
+    background: var(--main-color);
+    color: #fff;
+    border-radius: 0.5rem;
+}
+.about-text .btn:hover{
+    background: #1d33f1;
 }

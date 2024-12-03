@@ -91,17 +91,17 @@ header{
 }
 /*krahjeta*/
 .home{
-background-color: slategray;
+
 width: 100%;
 min-height: 100vh;
 position: relative;
-background: url(C:\Users\Krahjeta\Desktop\projektPNG\Porsche-911.png);
+background: url(Porsche-911.png) ;
 background-repeat: no-repeat;
 background-position: center right;
-background-size: cover;
+background-size: auto;
 display: grid;
 align-items: center;
-grid-column: repeat(2,1fr);
+grid-template-columns: repeat(2, 1fr);
 }
 .text h1{
     font-size: 3.5rem;
@@ -111,7 +111,7 @@ grid-column: repeat(2,1fr);
     color: var(--main-color);
 }
 .text p{
-    margin: 00.5rem 0 1rem;
+    margin: 2.5rem 0 0.8rem;
 }
 .app-stores{
     display: flex;
@@ -121,6 +121,8 @@ grid-column: repeat(2,1fr);
     margin-right: 1rem;
     cursor: pointer;
 }
+
+
 
 /*elzaabout*/
 .about-container{

@@ -10,7 +10,7 @@
     font-family: "Quicksand", sans-serif;
 }
 :root{
-    --main-color: #31344d;
+    --main-color: #78828c;
     --second-color: #8c90ac;
     --text-color: #444;
     --gradient: linear-gradient(#31344d, #8c90ac)
@@ -93,7 +93,7 @@ header{
     border-radius: 0.5rem;
 }
 .header-btn .sign-in:hover{
-    background: #1d33f1;
+    background: #2f367a;
 }
 /*Krahjeta*/
 body {
@@ -191,9 +191,9 @@ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 width: 100%;
 min-height: 100vh;
 position: relative;
-background: url(Porsche-911.png) ;
+background: url(Bugatti.jpg)  ;
 background-repeat: no-repeat;
-background-position: center right;
+background-position: right;
 background-size: auto;
 display: grid;
 align-items: center;
@@ -201,6 +201,7 @@ grid-template-columns: repeat(2, 1fr);
 z-index: -1;
 
 }
+
 .text h1{
     font-size: 3.5rem;
     letter-spacing: 2px;
@@ -209,6 +210,7 @@ z-index: -1;
     color: var(--main-color);
 }
 .text p{
+    font-size: 1.3rem;
     margin: 2.5rem 0 0.8rem;
 }
 .app-stores{
@@ -218,7 +220,51 @@ z-index: -1;
     width: 100px ;
     margin-right: 1rem;
     cursor: pointer;
-    align-items: right;
+    align-items: left;
+}
+.form-container form{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    position: absolute;
+    bottom: 4rem;
+    left: 100px;
+    background: #78828c;
+    padding: 20px;
+    border-radius: 0.5rem;
+    
+
+}
+.input-box{
+    flex: 1 1 7rem;
+    display: flex;
+    flex-direction: column;
+}
+.input-box span{
+    font-weight: 500;
+    color: white;
+}
+.input-box input{
+    padding: 7px;
+    outline: none;
+    border: none;
+    background: #eeeff1;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+}
+.form-container from .btn{
+    flex: 1 1 7rem;
+    padding: 10px 34px;
+    border: none;
+    border-radius: 0.5rem;
+    background: #474fa0;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+}
+.form-container from .btn:hover{
+    background: var(--main-color);
 }
 
 

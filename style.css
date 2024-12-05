@@ -276,6 +276,15 @@ z-index: -1;
 .form-container from .btn:hover{
     background: var(--main-color);
 }
+.input-box .icon{
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    color: #fff;
+    width: 17px;
+    height: 17px;
+}
 
 
 

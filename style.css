@@ -93,7 +93,7 @@ header{
     border-radius: 0.5rem;
 }
 .header-btn .sign-in:hover{
-    background: #2f367a;
+    background: #1d33f1;
 }
 /*Krahjeta*/
 body {
@@ -191,7 +191,7 @@ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 width: 100%;
 min-height: 100vh;
 position: relative;
-background: url(por.JPEG) no-repeat ;
+background: url(por1.JPEG) no-repeat ;
 background-position: center;
 background-size: cover;
 padding-right: 50px;
@@ -232,7 +232,7 @@ z-index: -1;
     cursor: pointer;
     align-items: left;
 }
-.form-container form{
+.form-container form {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -240,7 +240,7 @@ z-index: -1;
     position: absolute;
     bottom: 4rem;
     left: 100px;
-    background: #78828c;
+    background: #fff;
     padding: 20px;
     border-radius: 0.5rem;
     
@@ -253,7 +253,6 @@ z-index: -1;
 }
 .input-box span{
     font-weight: 500;
-    color: white;
 }
 .input-box input{
     padding: 7px;
@@ -268,13 +267,13 @@ z-index: -1;
     padding: 10px 34px;
     border: none;
     border-radius: 0.5rem;
-    background: #474fa0;
+    background: var(--main-color);
     color: #fff;
     font-size: 1rem;
     font-weight: 500;
 }
 .form-container form .btn:hover{
-    background: var(--main-color);
+    background: #1d33f1;
 }
 .input-container{
     position: relative;

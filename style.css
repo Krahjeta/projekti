@@ -45,10 +45,11 @@ header{
 }
 .logo img{
     width: 120px;
-    height: 50px;
+    height: auto;
 }
 .navbar{
     display: flex;
+    gap: 10px;
 }
 .navbar li{
     position: relative;
@@ -79,11 +80,11 @@ header{
 #menu-icon{
     font-size: 24px;
     cursor: pointer;
-    z-index: 10001;
+   /* z-index: 10001;*/
     display: none;
 }
 .header-btn a{
-    padding: 10px 20px;
+    padding: 10px 15px;
     color: var(--text-color);
     font-weight: 500;
 }
@@ -94,6 +95,49 @@ header{
 }
 .header-btn .sign-in:hover{
     background: #1d33f1;
+}
+@media(max-width: 768px){
+
+    header{
+        flex-direction: column;
+        padding: 10px;
+    }
+    .navbar{
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: #eeeff1;
+    }
+    .navbar.active{
+        display: flex;
+    }
+    #menu-icon{
+        display: block;
+    }
+    .header-btn{
+        margin-top: 10px;
+    }
+    .logo img {
+        width: 80px;
+    }
+}
+@media (max-width:480px){
+    section{
+        padding: 20px;
+    }
+    .text h1{
+        font-size: 2rem;
+    }
+    .text p{
+        font-size: 1rem;
+    }
+    .services-container{
+        grid-template-columns: 1fr;
+    }
+    .form-container form{
+        flex-direction: column;
+
+    }
 }
 /*Krahjeta*/
 body {

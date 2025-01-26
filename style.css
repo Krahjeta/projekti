@@ -236,18 +236,18 @@ width: 100%;
 min-height: 100vh;
 position: relative;
 background: url(por1.JPEG) no-repeat ;
-background-position: center;
+/*background-position: center;*/
 background-size: cover;
-padding-right: 50px;
+/*padding-right: 50px;*/
 display: grid;
 align-items: center;
 grid-template-columns: repeat(2, 1fr);
 z-index: -1;
 
 }
-.home{
+/*.home{
     margin-right: 50px;
-}
+}*/
 .text{
     display: flex;
     flex-direction: column;
@@ -403,7 +403,7 @@ z-index: -1;
     margin-top: 2rem;
     align-items: center;
     gap: 1rem;
-    margin-top: 1rem;
+   /* margin-top: 1rem;*/
 }
 .about-img img{
     width: 100%;

@@ -47,20 +47,20 @@
    <div class="modal-content">
     <span class="close" id="closeSignUp">&times;</span>
     <h2>Sign Up</h2>
-    <form id="signUpForm">
+    <form id="signUpForm" action="signup.php" method="POST">
         <label for="signUpUsername">Username:</label>
         <div class="input-container">
-        <input type="text" id="signUpUsername" placeholder="Enter Username" required>
+        <input type="text" id="signUpUsername" name="username" placeholder="Enter Username" required>
         <ion-icon name="person-outline" class="icon"></ion-icon>
         </div>
         <label for="signUpEmail">Email:</label>
         <div class="input-container">
-        <input type="email" id="signUpEmail" placeholder="Enter Email" required>
+        <input type="email" id="signUpEmail" name="email" placeholder="Enter Email" required>
         <ion-icon name="mail-outline" class="icon"></ion-icon>
         </div>
         <label for="signUpPassword">Password:</label>
         <div class="input-container">
-        <input type="password" id="signUpPassword" placeholder="Enter password" required>
+        <input type="password" id="signUpPassword" name="password" placeholder="Enter password" required>
         <ion-icon name="lock-closed-outline" class="icon"></ion-icon>
         </div>
         <button type="submit">Sign Up</button>

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/solid.css">
 </head>
 <body>
     <header>
@@ -16,16 +17,30 @@
         <div class="bx bx-menu" id="menu-icon"></div>
 
         <ul class="navbar">
-            <li><a href="Website.html">Home</a></li>
-            <li><a href="ride.html">Ride</a></li>
-            <li><a href="service.html">Services</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="reviews.html">Reviews</a></li>
-        </ul>
+            <li><a href="Website.php">Home</a></li>
+            <li><a href="ride.php">Ride</a></li>
+            <li><a href="service.php">Services</a></li>
+            <li><a href="about.php">About</a></li>
+            <li><a href="reviews.php">Reviews</a></li>
+        
+        
         <div class="header-btn">
             <a href="#" class="sign-up">Sign Up</a>
             <a href="#" class="sign-in">Sign In</a>
         </div>
+        <li class="nav-profil">
+                <div class="avatar">
+                    <img src="rev1.jpg" alt="">
+
+                </div>
+                <ul>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="logout.html">Log-out</a></li>
+                </ul>
+            </li>
+            </ul>
+            <!--<button id="open_nav-btn"><i class="uis uis-bars"></i></button>-->
+        <!--<button id="close_nav-btn"><i class="uis uis-times"></i></button>-->
     </header>
 <!--Krahjeta-->
    <div class="modal" id="signUpModal">

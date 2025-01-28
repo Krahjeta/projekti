@@ -50,6 +50,7 @@ header{
 .navbar{
     display: flex;
     gap: 10px;
+    align-items: center;
 }
 .navbar li{
     position: relative;
@@ -75,6 +76,47 @@ header{
 }
 .navbar.active {
     display: flex;
+}
+.avatar{
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 0.3rem solid var(--color-bg);
+}
+.nav-profil{
+    position: relative;
+    cursor: pointer;
+}
+.nav-profil ul{
+position: absolute;
+top: 125%;
+right: 0;
+display: flex;
+flex-direction: column;
+box-shadow: 0 3remm 3 rem rgba(0,0, 0, 0.4);
+visibility: hidden;
+opacity: 0;
+transition: var(--transition);
+}
+.nav-profil li{
+background:var(--main-color);
+box-shadow: -2rem 3rem 7rem rgba(0, 0, 0, 0.7) ;
+}
+.nav-profil:hover > ul {
+    visibility: visible;
+    opacity: 1;
+}
+.nav-profil ul li a {
+    padding: 1rem;
+    background: var(--color-gray-900);
+    display: block;
+    width: 100%;
+
+}
+.nav-profil ul li:last-child a {
+    background: var(--color-blue);
+    color:  var(--color-bg);
 }
 
 #menu-icon{

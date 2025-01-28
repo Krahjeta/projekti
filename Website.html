@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Rental Website</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+</head>
+<body>
+    <header>
+        <a href="#" class="logo"><img src="logo.png" alt="logo" ></a>
+
+        <div class="bx bx-menu" id="menu-icon"></div>
+
+        <ul class="navbar">
+            <li><a href="Website.html">Home</a></li>
+            <li><a href="ride.html">Ride</a></li>
+            <li><a href="service.html">Services</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="reviews.html">Reviews</a></li>
+        </ul>
+        <div class="header-btn">
+            <a href="#" class="sign-up">Sign Up</a>
+            <a href="#" class="sign-in">Sign In</a>
+        </div>
+    </header>
+<!--Krahjeta-->
+   <div class="modal" id="signUpModal">
+   <div class="modal-content">
+    <span class="close" id="closeSignUp">&times;</span>
+    <h2>Sign Up</h2>
+    <form id="signUpForm">
+        <label for="signUpUsername">Username:</label>
+        <div class="input-container">
+        <input type="text" id="signUpUsername" placeholder="Enter Username" required>
+        <ion-icon name="person-outline" class="icon"></ion-icon>
+        </div>
+        <label for="signUpEmail">Email:</label>
+        <div class="input-container">
+        <input type="email" id="signUpEmail" placeholder="Enter Email" required>
+        <ion-icon name="mail-outline" class="icon"></ion-icon>
+        </div>
+        <label for="signUpPassword">Password:</label>
+        <div class="input-container">
+        <input type="password" id="signUpPassword" placeholder="Enter password" required>
+        <ion-icon name="lock-closed-outline" class="icon"></ion-icon>
+        </div>
+        <button type="submit">Sign Up</button>
+    </form>
+
+   </div>
+   </div>
+
+   <div class="modal" id="signInModal">
+    <div class="modal-content">
+     <span class="close" id="closeSignIn">&times;</span>
+     <h2>Sign In</h2>
+     <form id="signInForm">
+        <label for="signInEmail">Email:</label>
+        <div class="input-container">
+        <input type="email" id="signInEmail" placeholder="Enter Email" required>
+        <ion-icon name="mail-outline" class="icon"></ion-icon>
+        </div>
+        <label for="signInPassword">Password:</label>
+        <div class="input-container">
+        <input type="password" id="signInPassword" placeholder="Enter password" required>
+        <ion-icon name="lock-closed-outline" class="icon"></ion-icon>
+        </div>
+        <button type="submit">Sign In</button>
+     </form>
+    </div>
+   </div>
+
+
+    <!--Krahjeta-->
+<section class="home" id="home">
+    <div class="text">
+        <h1><span>Looking</span> for a <br>car to rent?</h1>
+        <p>Download now on App Store and Google Play</p>
+        <div class="app-store">
+            
+              <img src="appStore.webp" alt="Aplikacioni IOS"width="200" height="54" >
+              <img src="googlePlay.webp" alt="Aplikacioni Android" width="200" height="54" style="margin-inline-start: 10px;">
+
+        </div>
+        <div class="form-container">
+            <form >
+                <div class="input-box">
+                    <span>Location</span>
+                    <input type="text" placeholder="Search Places" required>
+                </div>
+                <div class="input-box">
+                    <span>Pick-Up Date</span>
+                    <input type="date" required>
+                </div>
+                <div class="input-box">
+                    <span>Return Date</span>
+                    <input type="date"required>
+                </div>
+                <input type="submit" class="btn" value="Search">
+            </form>
+        </div>
+</section>
+<footer>
+    <div class="copyright">
+        <p>© 2024 Car Rental. All rights reserved.</p>
+        <div class="social">
+            <a href="#"><i class='bx bxl-facebook'></i></a>
+            <a href="#"><i class='bx bxl-twitter'></i></a>
+            <a href="#"><i class='bx bxl-instagram'></i></a>
+        </div>
+    </div>
+</footer>
+
+    <script src="main.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+</body>
+</html>

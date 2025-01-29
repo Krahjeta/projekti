@@ -1,3 +1,32 @@
+<?php
+include 'config.php';
+if(isset($_POST['submit'])){
+$name = mysqli_real_escape_string($conn,$_POST['username']);
+$email = mysqli_real_escape_string($conn,$_POST['email']);
+$pass = mysqli_real_escape_string($conn,$_POST['password']);
+$cpass = mysqli_real_escape_string($conn,$_POST['cpassword']);
+$user_type = $_POST['user_type'];
+$select_user = mysqli_query($conn,"SELECT * FROM users WHERE email='$email' AND password = '$pass'") or die('query failed');
+
+if(mysqli_num_rows($select_user) > 0 ){
+    $message[] = 'user already exists!';
+}
+else{
+    if($pass != $cpass){
+     $message[] = 'confirm password not matched';
+    }
+    else{
+        mysqli_query($conn,"INSERT INTO users (name, email, password, user_type) 
+        VALUES ('$name','$email', '$cpass','$user_type') ")or die('query failed');
+        $message[] = 'registered successfully';
+    }
+}
+
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,11 +72,26 @@
         <!--<button id="close_nav-btn"><i class="uis uis-times"></i></button>-->
     </header>
 <!--Krahjeta-->
+<?php
+if(isset($message)){
+    foreach($message as $msg){
+        echo '
+        <div class ="message">
+        <span>'.htmlspecialchars($msg).'</span>
+        <i class = "fas fa-time" onclick="this.parentElement.remove();"></i>
+        </div>
+        ';
+    }
+}
+
+
+?>
+
    <div class="modal" id="signUpModal">
    <div class="modal-content">
     <span class="close" id="closeSignUp">&times;</span>
     <h2>Sign Up</h2>
-    <form id="signUpForm" action="signup.php" method="POST">
+    <form id="signUpForm"  method="POST" action="">
         <label for="signUpUsername">Username:</label>
         <div class="input-container">
         <input type="text" id="signUpUsername" name="username" placeholder="Enter Username" required>
@@ -63,7 +107,16 @@
         <input type="password" id="signUpPassword" name="password" placeholder="Enter password" required>
         <ion-icon name="lock-closed-outline" class="icon"></ion-icon>
         </div>
-        <button type="submit">Sign Up</button>
+        <label for="signUpConfirmPassword"> Confirm Password:</label>
+        <div class="input-container">
+        <input type="password" id="signUpConfirmPassword" name="cpassword" placeholder="Confirm your password" required>
+        <ion-icon name="lock-closed-outline" class="icon"></ion-icon>
+        </div>
+        <select name="user_type" class="box" required>
+        <option value="user">user</option>
+        <option value="admin">admin</option>
+        </select>
+        <button type="submit" name="submit">Sign Up</button>
     </form>
 
    </div>

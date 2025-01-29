@@ -17,11 +17,11 @@
         <div class="bx bx-menu" id="menu-icon"></div>
 
         <ul class="navbar">
-            <li><a href="Website.html">Home</a></li>
-            <li><a href="ride.html">Ride</a></li>
-            <li><a href="service.html">Services</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="reviews.html">Reviews</a></li>
+            <li><a href="Website.php">Home</a></li>
+            <li><a href="ride.php">Ride</a></li>
+            <li><a href="service.php">Services</a></li>
+            <li><a href="about.php">About</a></li>
+            <li><a href="reviews.php">Reviews</a></li>
         </ul>
         <div class="header-btn">
             <a href="#" class="sign-up">Sign Up</a>

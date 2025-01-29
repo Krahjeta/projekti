@@ -1,3 +1,7 @@
+<?php
+session_start();  // Always call session_start() at the top
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -79,7 +83,7 @@
         <span>Best Services</span>
         <h1>Explore Our Top Deals <br> From Top Rated Dealers</h1>
     </div>
-    <div class="services-container">
+    <!-- <div class="services-container">
         <div class="box">
             <div class="box-img">
                 <img src="car1.jpg" alt="">
@@ -134,7 +138,20 @@
             <h2>$58500 | $358 <span>/month</span></h2>
             <a href="#" class="btn">Rent Now</a>
         </div>
-    </div>
+    </div>  -->
+
+    <div id="services"></div>
+
+<script>
+    // Fetch posts from the backend
+    fetch('fetch_posts.php')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('services').innerHTML = data;
+        })
+        .catch(error => console.error('Error fetching posts:', error));
+</script>
+
 </section>
 <footer>
     <div class="copyright">

@@ -1,6 +1,9 @@
 <?php
-require_once 'classes/Database.php';
-require_once 'classes/User.php';
+session_start();  // Always call session_start() at the top
+
+
+require_once 'Database.php';
+require_once 'User.php';
 
 $database = new Database();
 $db = $database->connect();
@@ -18,4 +21,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "Sign-up failed.";
     }
 }
+print_r($_POST); 
 ?>

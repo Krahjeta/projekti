@@ -7,32 +7,40 @@ class User {
         $this->conn = $db;
     }
 
-    // Register User
+    // Register a new user
     public function register($username, $email, $password) {
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-        $query = "INSERT INTO $this->table (username, email, password) VALUES (:username, :email, :password)";
+        $query = "INSERT INTO " . $this->table . " (username, email, password) VALUES (:username, :email, :password)";
         $stmt = $this->conn->prepare($query);
 
+        // Hash the password before storing
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        // Bind parameters
         $stmt->bindParam(':username', $username);
         $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':password', $hashed_password);
+        $stmt->bindParam(':password', $hashedPassword);
 
+        // Execute and return success
         return $stmt->execute();
     }
 
-    // Login User
+    // Login a user
     public function login($email, $password) {
-        $query = "SELECT * FROM $this->table WHERE email = :email";
+        $query = "SELECT * FROM " . $this->table . " WHERE email = :email";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
 
+        // Bind parameters
+        $stmt->bindParam(':email', $email);
+
+        $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Verify password
         if ($user && password_verify($password, $user['password'])) {
-            return $user; // User is authenticated
+            return $user; // Return user details if login is successful
         }
-        return false;
+
+        return false; // Login failed
     }
 }
 ?>

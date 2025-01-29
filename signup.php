@@ -1,6 +1,6 @@
 <?php
-require_once 'classes/Database.php';
-require_once 'classes/User.php';
+require_once 'Database.php';
+require_once 'User.php';
 
 $database = new Database();
 $db = $database->connect();

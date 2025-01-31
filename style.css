@@ -142,7 +142,7 @@ box-shadow: -2rem 3rem 7rem rgba(0, 0, 0, 0.7) ;
 
 .message{
     position: sticky;
-    top: 0;
+    top: 1.5rem;
     margin: 0 auto;
     max-width: 1200px;
     background-color: var(--white);
@@ -150,7 +150,6 @@ box-shadow: -2rem 3rem 7rem rgba(0, 0, 0, 0.7) ;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    z-index: 10000;
     gap: 1.5rem;
 }
 .message span{
@@ -608,4 +607,12 @@ z-index: -1;
     color: #444;
     padding: 10px;
     font-size: 15px;
+}
+.modal {
+    display: none; /* Initially hidden */
+    /* Add other modal styling here */
+}
+
+.modal.active {
+    display: flex; /* Display when the 'active' class is added */
 }

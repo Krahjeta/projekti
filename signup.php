@@ -1,4 +1,10 @@
 <?php
+<<<<<<< HEAD
+=======
+session_start();  // Always call session_start() at the top
+
+
+>>>>>>> e413c0804a2048428013e78675ac7e653ae94c67
 require_once 'Database.php';
 require_once 'User.php';
 
@@ -18,4 +24,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "Sign-up failed.";
     }
 }
+print_r($_POST); 
 ?>

@@ -1,3 +1,7 @@
+<?php
+session_start();  // Always call session_start() at the top
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

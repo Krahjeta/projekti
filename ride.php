@@ -1,3 +1,7 @@
+<?php
+session_start();  // Always call session_start() at the top
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,23 +15,52 @@
     <!--<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>-->
 </head>
 <body>
-    <header>
-        <a href="#" class="logo"><img src="logo.png" alt="" srcset=""></a>
+<header>
+    <a href="Website.php" class="logo"><img src="logo.png" alt="logo"></a>
 
-        <div class="bx bx-menu" id="menu-icon"></div>
+    <div class="bx bx-menu" id="menu-icon"></div>
 
-        <ul class="navbar">
-            <li><a href="Website.php">Home</a></li>
-            <li><a href="ride.php">Ride</a></li>
-            <li><a href="service.php">Services</a></li>
-            <li><a href="about.php">About</a></li>
-            <li><a href="reviews.php">Reviews</a></li>
-        </ul>
-        <div class="header-btn">
-            <a href="#" class="sign-up">Sign Up</a>
-            <a href="#" class="sign-in">Sign In</a>
+    <ul class="navbar">
+        <li><a href="Website.php">Home</a></li>
+        <li><a href="ride.php">Ride</a></li>
+        <li><a href="service.php">Services</a></li>
+        <li><a href="about.php">About</a></li>
+        <li><a href="reviews.php">Reviews</a></li>
+    </ul>
+
+    <div class="header-btn">
+        <?php
+        if (isset($_SESSION['id'])) {
+            // User is logged in, show logout and dashboard options
+            echo '<li><a href="logout.php">Logout</a></li>';
+            echo '<li><a href="dashboard.php">Dashboard</a></li>';
+        } else {
+            // User is not logged in, show sign up and sign in options
+            echo '<a href="#" class="sign-up">Sign Up</a>';
+            echo '<a href="#" class="sign-in">Sign In</a>';
+        }
+        ?>
+    </div>
+
+    <li class="nav-profil">
+        <div class="avatar">
+            <img src="rev1.jpg" alt="User Avatar">
         </div>
-    </header>
+        <ul>
+            <?php
+            if (isset($_SESSION['id'])) {
+                // If user is logged in, show Dashboard and Logout
+                echo '<li><a href="dashboard.php">Dashboard</a></li>';
+                echo '<li><a href="logout.php">Log-out</a></li>';
+            } else {
+                // If not logged in, show Sign In and Sign Up options
+                echo '<li><a href="login.php">Sign In</a></li>';
+                echo '<li><a href="signup.php">Sign Up</a></li>';
+            }
+            ?>
+        </ul>
+    </li>
+</header>
 <!--Krahjeta-->
    <div class="modal" id="signUpModal">
    <div class="modal-content">

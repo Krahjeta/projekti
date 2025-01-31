@@ -1,5 +1,19 @@
 <?php
-session_start();  // Always call session_start() at the top
+session_start();
+require_once 'Database.php';
+
+$database = new Database();
+$conn = $database->connect();
+
+$stmt = $conn->prepare("SELECT section_name, content FROM page_content WHERE page_name = 'about'");
+$stmt->execute();
+
+$content = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$pageContent = [];
+foreach ($content as $item) {
+    $pageContent[$item['section_name']] = $item['content'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -78,25 +92,26 @@ session_start();  // Always call session_start() at the top
    </div>
 
    <!--elzaabout-->
-<section class="about" id="about">
+   <section class="about" id="about">
     <div class="heading">
-        <span>About Us</span>
-        <h1>Best Customer Experience</h1>
+        <span><?php echo htmlspecialchars($pageContent['section_title'] ?? 'About Us'); ?></span>
+        <h1><?php echo htmlspecialchars($pageContent['main_heading'] ?? 'Best Customer Experience'); ?></h1>
     </div>
     <div class="about-container">
         <div class="about-img">
             <img src="about.avif" alt="">
         </div>
         <div class="about-text">
-            <span>About Us</span>
-            <p>Welcome to our car rental website, your trusted partner for reliable and affordable car rentals. Whether it's a weekend getaway, a family vacation, or a business trip, we have the perfect vehicle for your journey.</p>
-            <p>Our mission is to make car rentals easy, accessible, and hassle-free. With a diverse fleet of well-maintained vehicles, competitive pricing, and flexible rental terms, we're here to ensure your travel plans go smoothly. From compact cars to spacious SUVs, we've got you covered.</p>
-            <p>Your comfort and safety are our top priorities. Every vehicle is regularly inspected and sanitized to meet the highest standards. Plus, with our friendly customer support team available 24/7, help is always just a call away.</p>
-            <p>Thank you for choosing our website. Let's hit the road together! Whether it's a short trip or a grand adventure, we're here to make your travels unforgettable. </p>
+            <span><?php echo htmlspecialchars($pageContent['about_subheading'] ?? 'About Us'); ?></span>
+            <p><?php echo nl2br(htmlspecialchars($pageContent['paragraph_1'] ?? 'Welcome to our car rental website, your trusted partner for reliable and affordable car rentals. Whether it\'s a weekend getaway, a family vacation, or a business trip, we have the perfect vehicle for your journey.')); ?></p>
+            <p><?php echo nl2br(htmlspecialchars($pageContent['paragraph_2'] ?? 'Our mission is to make car rentals easy, accessible, and hassle-free. With a diverse fleet of well-maintained vehicles, competitive pricing, and flexible rental terms, we\'re here to ensure your travel plans go smoothly. From compact cars to spacious SUVs, we\'ve got you covered.')); ?></p>
+            <p><?php echo nl2br(htmlspecialchars($pageContent['paragraph_3'] ?? 'Your comfort and safety are our top priorities. Every vehicle is regularly inspected and sanitized to meet the highest standards. Plus, with our friendly customer support team available 24/7, help is always just a call away.')); ?></p>
+            <p><?php echo nl2br(htmlspecialchars($pageContent['paragraph_4'] ?? 'Thank you for choosing our website. Let\'s hit the road together! Whether it\'s a short trip or a grand adventure, we\'re here to make your travels unforgettable.')); ?></p>
             <a href="#" class="btn">Learn More</a>
         </div>
     </div>
 </section>
+
 <footer>
     <div class="copyright">
         <p>© 2024 Car Rental. All rights reserved.</p>

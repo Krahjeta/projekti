@@ -1,5 +1,19 @@
 <?php
-session_start();  // Always call session_start() at the top
+session_start();
+require_once 'Database.php';
+
+$database = new Database();
+$conn = $database->connect();
+
+$stmt = $conn->prepare("SELECT section_name, content FROM page_content WHERE page_name = 'reviews'");
+$stmt->execute();
+
+$pageContent = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$reviewsData = [];
+foreach ($pageContent as $item) {
+    $reviewsData[$item['section_name']] = $item['content'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -108,53 +122,69 @@ session_start();  // Always call session_start() at the top
    <section class="reviews" id="reviews">
     <div class="heading">
         <span>Reviews</span>
-        <h1>Trusted by Thousands of Customers</h1>  
+        <h1><?php echo htmlspecialchars($reviewsData['main_heading'] ?? 'Trusted by Thousands of Customers'); ?></h1>
     </div>
     <div class="reviews-container">
+        
         <div class="box">
             <div class="rev-img">
-                <img src="rev1.jpg" alt="">
+                <img src="<?php echo htmlspecialchars($reviewsData['review_1_image'] ?? 'rev1.jpg'); ?>" alt="<?php echo htmlspecialchars($reviewsData['review_1_name'] ?? 'Daniel'); ?>">
             </div>
-            <h2>Daniel</h2>
+            <h2><?php echo htmlspecialchars($reviewsData['review_1_name'] ?? 'Daniel'); ?></h2>
             <div class="stars">
-                <i class='bx bxs-star'></i>
-                <i class='bx bxs-star'></i>
-                <i class='bx bxs-star'></i>
-                <i class='bx bxs-star'></i>
-                <i class='bx bxs-star-half' ></i>
+                <?php
+                $rating = floatval($reviewsData['review_1_rating'] ?? 4.5);
+                $fullStars = floor($rating);
+                for ($i = 0; $i < $fullStars; $i++) {
+                    echo "<i class='bx bxs-star'></i>";
+                }
+                if ($rating - $fullStars >= 0.5) {
+                    echo "<i class='bx bxs-star-half'></i>";
+                }
+                ?>
             </div>
-            <p>The car options are fantastic, and the prices are super competitive. I appreciated the flexibility with pick-up and return dates. Will definitely use this service again!</p>
+            <p><?php echo htmlspecialchars($reviewsData['review_1_content'] ?? 'The car options are fantastic, and the prices are super competitive.'); ?></p>
         </div>
+
         <div class="box">
             <div class="rev-img">
-                <img src="rev2.jpg" alt="">
+                <img src="<?php echo htmlspecialchars($reviewsData['review_2_image'] ?? 'rev2.jpg'); ?>" alt="<?php echo htmlspecialchars($reviewsData['review_2_name'] ?? 'Andrea'); ?>">
             </div>
-            <h2>Andrea</h2>
+            <h2><?php echo htmlspecialchars($reviewsData['review_2_name'] ?? 'Andrea'); ?></h2>
             <div class="stars">
-                <i class='bx bxs-star'></i>
-                <i class='bx bxs-star'></i>
-                <i class='bx bxs-star'></i>
-                <i class='bx bxs-star'></i>
-                <i class='bx bxs-star-half' ></i>
+                <?php
+                $rating = floatval($reviewsData['review_2_rating'] ?? 4.5);
+                $fullStars = floor($rating);
+                for ($i = 0; $i < $fullStars; $i++) {
+                    echo "<i class='bx bxs-star'></i>";
+                }
+                if ($rating - $fullStars >= 0.5) {
+                    echo "<i class='bx bxs-star-half'></i>";
+                }
+                ?>
             </div>
-            <p>I loved how easy it was to book a car! The website is clean and intuitive, and I found everything I needed within minutes. Highly recommended!</p>
+            <p><?php echo htmlspecialchars($reviewsData['review_2_content'] ?? 'I loved how easy it was to book a car!'); ?></p>
         </div>
+
         <div class="box">
             <div class="rev-img">
-                <img src="rev3.jpg" alt="">
+                <img src="<?php echo htmlspecialchars($reviewsData['review_3_image'] ?? 'rev3.jpg'); ?>" alt="<?php echo htmlspecialchars($reviewsData['review_3_name'] ?? 'Liam'); ?>">
             </div>
-            <h2>Liam</h2>
+            <h2><?php echo htmlspecialchars($reviewsData['review_3_name'] ?? 'Liam'); ?></h2>
             <div class="stars">
-                <i class='bx bxs-star'></i>
-                <i class='bx bxs-star'></i>
-                <i class='bx bxs-star'></i>
-                <i class='bx bxs-star'></i>
-                <i class='bx bxs-star'></i>
+                <?php
+                $rating = floatval($reviewsData['review_3_rating'] ?? 5);
+                $fullStars = floor($rating);
+                for ($i = 0; $i < $fullStars; $i++) {
+                    echo "<i class='bx bxs-star'></i>";
+                }
+                ?>
             </div>
-            <p>The design of the website is sleek and modern. Navigating through locations, dates, and car types was a breeze. The attention to detail really stands out!</p>
+            <p><?php echo htmlspecialchars($reviewsData['review_3_content'] ?? 'The design of the website is sleek and modern.'); ?></p>
         </div>
     </div>
-   </section>
+</section>
+
    <section class="newsletter">
     <h2>Subscribe To Newsletter</h2>
     <div class="box">

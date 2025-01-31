@@ -1,12 +1,21 @@
 <?php
-session_start();  // Start the session to manage session data
+session_start();
 require_once 'Database.php';
 require_once 'User.php';
 
-// Initialize Database and User objects
 $database = new Database();
 $db = $database->connect();
 $user = new User($db);
+
+
+$stmt = $db->prepare("SELECT section_name, content FROM page_content WHERE page_name = 'home'");
+$stmt->execute();
+$content = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$pageContent = [];
+foreach ($content as $item) {
+    $pageContent[$item['section_name']] = $item['content'];
+}
 
 // Handle sign-up form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
@@ -163,30 +172,36 @@ if (isset($message)) {
 <!-- Home Section -->
 <section class="home" id="home">
     <div class="text">
-        <h1><span>Looking</span> for a <br>car to rent?</h1>
-        <p>Download now on App Store and Google Play</p>
+        <h1>
+            <span><?php echo htmlspecialchars($pageContent['headline_prefix'] ?? 'Looking'); ?></span> 
+            for a <br>
+            <?php echo htmlspecialchars($pageContent['headline_suffix'] ?? 'car to rent?'); ?>
+        </h1>
+        <p><?php echo htmlspecialchars($pageContent['sub_text'] ?? 'Download now on App Store and Google Play'); ?></p>
         <div class="app-store">
-              <img src="appStore.webp" alt="Aplikacioni IOS" width="200" height="54" >
-              <img src="googlePlay.webp" alt="Aplikacioni Android" width="200" height="54" style="margin-inline-start: 10px;">
+            <img src="appStore.webp" alt="Aplikacioni IOS" width="200" height="54">
+            <img src="googlePlay.webp" alt="Aplikacioni Android" width="200" height="54" style="margin-inline-start: 10px;">
         </div>
         <div class="form-container">
             <form>
                 <div class="input-box">
-                    <span>Location</span>
+                    <span><?php echo htmlspecialchars($pageContent['form_label_location'] ?? 'Location'); ?></span>
                     <input type="text" placeholder="Search Places" required>
                 </div>
                 <div class="input-box">
-                    <span>Pick-Up Date</span>
+                    <span><?php echo htmlspecialchars($pageContent['form_label_pickup'] ?? 'Pick-Up Date'); ?></span>
                     <input type="date" required>
                 </div>
                 <div class="input-box">
-                    <span>Return Date</span>
+                    <span><?php echo htmlspecialchars($pageContent['form_label_return'] ?? 'Return Date'); ?></span>
                     <input type="date" required>
                 </div>
                 <input type="submit" class="btn" value="Search">
             </form>
         </div>
+    </div>
 </section>
+
 
 <!-- Footer -->
 <footer>

@@ -1,5 +1,19 @@
 <?php
-session_start();  // Always call session_start() at the top
+session_start();
+require_once 'Database.php';
+
+$database = new Database();
+$conn = $database->connect();
+
+$stmt = $conn->prepare("SELECT section_name, content FROM page_content WHERE page_name = 'services'");
+$stmt->execute();
+
+$content = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$pageContent = [];
+foreach ($content as $item) {
+    $pageContent[$item['section_name']] = $item['content'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -81,7 +95,7 @@ session_start();  // Always call session_start() at the top
    <section class="services" id="services">
     <div class="heading">
         <span>Best Services</span>
-        <h1>Explore Our Top Deals <br> From Top Rated Dealers</h1>
+        <h1><?php echo htmlspecialchars($pageContent['main_heading']); ?></h1>
     </div>
     <!-- <div class="services-container">
         <div class="box">

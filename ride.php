@@ -1,5 +1,20 @@
 <?php
-session_start();  // Always call session_start() at the top
+session_start();
+require_once 'Database.php';
+
+$database = new Database();
+$conn = $database->connect();
+
+// Fetch content for the ride page
+$stmt = $conn->prepare("SELECT section_name, content FROM page_content WHERE page_name = 'ride'");
+$stmt->execute();
+
+$content = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$pageContent = [];
+foreach ($content as $item) {
+    $pageContent[$item['section_name']] = $item['content'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -107,31 +122,30 @@ session_start();  // Always call session_start() at the top
      </form>
     </div>
    </div>
-   <Section class="ride" id="ride">
-
+   <section class="ride" id="ride">
     <div class="heading">
-    <span>How it works</span>
-    <h1>Rent With 3 Easy Steps</h1>
+        <span>How it works</span>
+        <h1><?php echo htmlspecialchars($pageContent['heading']); ?></h1>
     </div>
     <div class="ride-container">
         <div class="box">
-    <i class='bx bx-map'></i>
-    <h2>Choose A Location</h2>
-    <p>Select the city where you would like to start your journey by picking up your rental car or conveniently return it at the end of your trip.</p>
-    </div>
+            <i class='bx bx-map'></i>
+            <h2><?php echo htmlspecialchars($pageContent['step_1']); ?></h2>
+            <p>Select the city where you would like to start your journey by picking up your rental car or conveniently return it at the end of your trip.</p>
+        </div>
         <div class="box">
-        <i class='bx bx-calendar-edit' ></i>
-    <h2>Pick-Up Date</h2>
-    <p>Choose your desired pick-up and return dates to customize your rental based on the days you need the car.</p>
-    </div>
+            <i class='bx bx-calendar-edit'></i>
+            <h2><?php echo htmlspecialchars($pageContent['step_2']); ?></h2>
+            <p>Choose your desired pick-up and return dates to customize your rental based on the days you need the car.</p>
+        </div>
         <div class="box">
             <i class='bx bxs-car-garage'></i>
-    <h2>Book A Car</h2>
-    <p>Reserve your car today to guarantee the ideal vehicle, ensuring a comfortable and hassle-free travel experience.</p>
+            <h2><?php echo htmlspecialchars($pageContent['step_3']); ?></h2>
+            <p>Reserve your car today to guarantee the ideal vehicle, ensuring a comfortable and hassle-free travel experience.</p>
+        </div>
     </div>
-    </div>
+</section>
 
-</Section>
 <footer>
     <div class="copyright">
         <p>© 2024 Car Rental. All rights reserved.</p>

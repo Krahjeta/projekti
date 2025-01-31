@@ -298,6 +298,31 @@ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 .close:hover{
     color: red;
 }
+/* Centered Notification styling */
+#notificationBox {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #4caf50;
+    color: white;
+    padding: 20px 40px;
+    border-radius: 10px;
+    font-size: 20px;
+    text-align: center;
+    z-index: 9999;
+    display: none;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+#notificationBox.error {
+    background-color: #f44336;
+}
+
+.hidden {
+    display: none;
+}
+
 
 /*krahjeta*/
 .home{

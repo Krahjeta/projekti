@@ -3,7 +3,7 @@ class Database {
     private $host = 'localhost';
     private $db_name = 'car_rental';
     private $username = 'root';
-    private $password = ''; // Replace with your password
+    private $password = '';
     private $conn;
 
     public function connect() {

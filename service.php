@@ -1,19 +1,5 @@
 <?php
-session_start();
-require_once 'Database.php';
-
-$database = new Database();
-$conn = $database->connect();
-
-$stmt = $conn->prepare("SELECT section_name, content FROM page_content WHERE page_name = 'services'");
-$stmt->execute();
-
-$content = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-$pageContent = [];
-foreach ($content as $item) {
-    $pageContent[$item['section_name']] = $item['content'];
-}
+session_start();  // Always call session_start() at the top
 ?>
 
 <!DOCTYPE html>
@@ -95,7 +81,14 @@ foreach ($content as $item) {
    <section class="services" id="services">
     <div class="heading">
         <span>Best Services</span>
-        <h1><?php echo htmlspecialchars($pageContent['main_heading']); ?></h1>
+        <h1>Explore Our Top Deals <br> From Top Rated Dealers</h1>
+    </div>
+    <div class="carousel-container">
+        <button class="carousel-btn prev-btn">&#10094;</button>
+        <div class="carousel-track-container">
+            <div class="carousel-track services-container" id="carousel-track"></div>
+        </div>
+        <button class="carousel-btn next-btn">&#10095;</button>
     </div>
     <!-- <div class="services-container">
         <div class="box">
@@ -157,13 +150,59 @@ foreach ($content as $item) {
     <div id="services"></div>
 
 <script>
-    // Fetch posts from the backend
+ document.addEventListener('DOMContentLoaded', function () {
+    const track = document.getElementById('carousel-track');
+    const nextButton = document.querySelector('.next-btn');
+    const prevButton = document.querySelector('.prev-btn');
+
+    let currentSlide = 0;
+
+    // Fetch posts and insert them into the carousel
     fetch('fetch_posts.php')
         .then(response => response.text())
         .then(data => {
-            document.getElementById('services').innerHTML = data;
+            track.innerHTML = data;
+            setupCarousel();
         })
         .catch(error => console.error('Error fetching posts:', error));
+
+    function setupCarousel() {
+        const slides = Array.from(track.children);
+        const slideWidth = slides[0].offsetWidth;
+
+        nextButton.addEventListener('click', () => moveSlide(1, slides, slideWidth));
+        prevButton.addEventListener('click', () => moveSlide(-1, slides, slideWidth));
+
+        // Set initial position
+        track.style.transform = `translateX(0px)`;
+    }
+
+    function moveSlide(direction, slides, slideWidth) {
+        const totalSlides = slides.length;
+        currentSlide += direction;
+
+        // Smooth transition to next/previous slide
+        track.style.transition = 'transform 0.5s ease-in-out';
+        track.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+
+        // Add event listener for instant reset
+        track.addEventListener('transitionend', () => {
+            if (currentSlide >= totalSlides) {
+                // Reset instantly to the first slide without transition
+                track.style.transition = 'none';
+                currentSlide = 0;
+                track.style.transform = `translateX(0px)`;
+            } else if (currentSlide < 0) {
+                // Reset instantly to the last slide without transition
+                track.style.transition = 'none';
+                currentSlide = totalSlides - 1;
+                track.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+            }
+        }, { once: true });
+    }
+});
+
+
 </script>
 
 </section>

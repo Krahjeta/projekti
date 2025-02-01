@@ -59,15 +59,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
         <li><a href="about.php">About</a></li>
         <li><a href="reviews.php">Reviews</a></li>
     </ul>
+    
 
     <div class="header-btn">
         <?php
         if (isset($_SESSION['id'])) {
-          
+           
             echo '<li><a href="logout.php">Logout</a></li>';
             echo '<li><a href="dashboard.php">Dashboard</a></li>';
         } else {
-         
+      
             echo '<a href="#" class="sign-up" id="signUpBtn">Sign Up</a>';
             echo '<a href="#" class="sign-in" id="signInBtn">Sign In</a>';
         }
@@ -81,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
         <ul>
             <?php
             if (isset($_SESSION['id'])) {
-               
+              
                 echo '<li><a href="dashboard.php">Dashboard</a></li>';
                 echo '<li><a href="logout.php">Log-out</a></li>';
             } else {
@@ -201,34 +202,28 @@ function showNotification(message, isError = false) {
 
 
 <!-- Sign In Modal -->
-<!-- Notification Box -->
-<div id="notificationBox" class="notification hidden"></div>
-
-<!-- Sign In Modal -->
 <?php if (!isset($_SESSION['id'])): ?>
 <div class="modal" id="signInModal">
     <div class="modal-content">
         <span class="close" id="closeSignIn">&times;</span>
         <h2>Sign In</h2>
-        <form id="signInForm" method="POST">
+        <form id="signInForm" method="POST" action="login.php">
             <label for="signInEmail">Email:</label>
             <div class="input-container">
-                <ion-icon name="mail-outline" class="icon"></ion-icon>
                 <input type="email" id="signInEmail" name="email" placeholder="Enter Email" required>
+                <ion-icon name="mail-outline" class="icon"></ion-icon>
             </div>
-
             <label for="signInPassword">Password:</label>
             <div class="input-container">
-                <ion-icon name="lock-closed-outline" class="icon"></ion-icon>
                 <input type="password" id="signInPassword" name="password" placeholder="Enter Password" required>
+                <ion-icon name="lock-closed-outline" class="icon"></ion-icon>
             </div>
-
             <button type="submit">Sign In</button>
+            <?php if (isset($error_message)) echo "<p>$error_message</p>"; ?>
         </form>
     </div>
 </div>
 <?php endif; ?>
-
 
 <!-- Home Section -->
 <section class="home" id="home">

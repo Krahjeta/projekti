@@ -30,6 +30,7 @@ foreach ($content as $item) {
     <!--<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>-->
 </head>
 <body>
+<div class="page-container">
 <header>
     <a href="Website.php" class="logo"><img src="logo.png" alt="logo"></a>
 
@@ -122,6 +123,7 @@ foreach ($content as $item) {
      </form>
     </div>
    </div>
+   <div class="content">
    <section class="ride" id="ride">
     <div class="heading">
         <span>How it works</span>
@@ -145,7 +147,7 @@ foreach ($content as $item) {
         </div>
     </div>
 </section>
-
+   </div>
 <footer>
     <div class="copyright">
         <p>© 2024 Car Rental. All rights reserved.</p>
@@ -156,6 +158,7 @@ foreach ($content as $item) {
         </div>
     </div>
 </footer>
+</div>
 
    <script src="main.js"></script>
    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>

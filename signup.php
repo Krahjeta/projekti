@@ -14,13 +14,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
     $cpassword = $_POST['cpassword'];
-    $user_type = $_POST['user_type'];
+    $role = $_POST['role'];
 
     if ($password !== $cpassword) {
         $response['status'] = 'error';
         $response['message'] = 'Passwords do not match';
     } else {
-        if ($user->register($username, $email, $password, $user_type)) {
+        if ($user->register($username, $email, $password, $role)) {
             $response['status'] = 'success';
             $response['message'] = 'Sign-up successful!';
         } else {

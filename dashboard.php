@@ -2,10 +2,10 @@
 session_start();
 
 require_once 'Database.php';
-require_once 'Post.php';
+//require_once 'Post.php';
 
 // Check if the user is logged in and has admin privileges
-if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     header('Location: login.php');
     exit;
 }

@@ -22,12 +22,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
     $cpassword = $_POST['cpassword'];
-    $user_type = $_POST['user_type'];
+    $rolw = $_POST['role'];
 
     if ($password !== $cpassword) {
         $message[] = 'Passwords do not match';
     } else {
-        if ($user->register($username, $email, $password, $user_type)) {
+        if ($user->register($username, $email, $password, $role)) {
             $message[] = 'Sign-up successful';
         } else {
             $message[] = 'Sign-up failed. User might already exist.';
@@ -140,7 +140,7 @@ if (isset($message)) {
             </div>
 
             <label for="userType">User Type:</label>
-            <select name="user_type" id="userType" class="box" required>
+            <select name="role" id="role" class="box" required>
                 <option value="user">User</option>
                 <option value="admin">Admin</option>
             </select>

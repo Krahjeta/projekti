@@ -88,8 +88,10 @@ session_start();  // Always call session_start() at the top
         <div class="carousel-track-container">
             <div class="carousel-track services-container" id="carousel-track"></div>
         </div>
+       </div>
         <button class="carousel-btn next-btn">&#10095;</button>
     </div>
+    
     <!-- <div class="services-container">
         <div class="box">
             <div class="box-img">
@@ -146,6 +148,20 @@ session_start();  // Always call session_start() at the top
             <a href="#" class="btn">Rent Now</a>
         </div>
     </div>  -->
+    <div class="modal" id="rentModal">
+        <div class="modal-content">
+            <span class="close" id="closeRentModal">&times;</span>
+            <h2>Choose Rental Dates</h2>
+            <form action="proces_rental.php" method="POST">
+                <input type="hidden" name="car_id" id="carIdInput">
+                <label for="start_date">Start Date:</label>
+                <input type="date" name="start_date" required>
+                <label for="end_date">End Date:</label>
+                <input type="date" name="end_date" required>
+                <button type="submit">Confirm Rental</button>
+            </form>
+        </div>
+    </div>
 
     <div id="services"></div>
 
@@ -154,6 +170,8 @@ session_start();  // Always call session_start() at the top
     const track = document.getElementById('carousel-track');
     const nextButton = document.querySelector('.next-btn');
     const prevButton = document.querySelector('.prev-btn');
+    const rentButton = [];
+
 
     let currentSlide = 0;
 
@@ -163,6 +181,8 @@ session_start();  // Always call session_start() at the top
         .then(data => {
             track.innerHTML = data;
             setupCarousel();
+
+            updataRentNowButton();
         })
         .catch(error => console.error('Error fetching posts:', error));
 
@@ -200,8 +220,48 @@ session_start();  // Always call session_start() at the top
             }
         }, { once: true });
     }
-});
+function updateRentNowButtons() {
+        // Select all Rent Now buttons dynamically
+        const rentButtons = document.querySelectorAll('.carousel-container .rent-now-btn');
 
+        rentButtons.forEach(button => {
+            button.addEventListener("click", function (event) {
+                event.preventDefault();
+                const carId = this.getAttribute("data-car-id");
+
+                // Check if the user is logged in
+                fetch("check_login.php")
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.logged_in) {
+                            showRentModal(carId);  // Show rental dates modal
+                        } else {
+                            alert("Please log in first!");  // Prompt to log in
+                        }
+                    })
+                    .catch(error => console.error("Error:", error));
+            });
+        });
+    }
+
+    // Function to display the rent modal with selected car
+    function showRentModal(carId) {
+        document.getElementById("carIdInput").value = carId;
+        document.getElementById("rentModal").style.display = "block";
+    }
+
+    // Close the rent modal
+    document.getElementById("closeRentModal").addEventListener("click", function () {
+        document.getElementById("rentModal").style.display = "none";
+    });
+
+    // Optional: Close the modal when clicking outside of it
+    window.addEventListener("click", function(event) {
+        if (event.target == document.getElementById("rentModal")) {
+            document.getElementById("rentModal").style.display = "none";
+        }
+    });
+});
 
 </script>
 

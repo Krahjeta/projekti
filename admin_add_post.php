@@ -1,7 +1,7 @@
 <?php
-// Start a session and check if the admin is logged in
 session_start();
-if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
+// Ensure the admin is logged in
+if (!isset($_SESSION['role']) ) {
     header('Location: login.php'); // Redirect to login page if not logged in
     exit;
 }
@@ -26,14 +26,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $price = (float)$_POST['price'];
     $monthly_price = (float)$_POST['monthly_price'];
 
-    // Insert the post into the database
-    $sql = "INSERT INTO cars (image, year, name, price, monthly_price) VALUES ('$image', $year, '$name', $price, $monthly_price)";
-    if ($conn->query($sql) === TRUE) {
+    // Insert the post into the database using prepared statements
+    $stmt = $conn->prepare("INSERT INTO cars (image, year, name, price, monthly_price) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssd", $image, $year, $name, $price, $monthly_price);
+
+    if ($stmt->execute()) {
         $success_message = "Post added successfully!";
     } else {
-        $error_message = "Error: " . $conn->error;
+        $error_message = "Error: " . $stmt->error;
     }
 
+    $stmt->close();
     $conn->close();
 }
 ?>

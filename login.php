@@ -5,7 +5,7 @@ $error_message = "";
 // Check if the user is already logged in
 if (isset($_SESSION['id'])) {
     // Redirect based on role
-    if ($_SESSION['user_role'] === 'admin') {
+    if ($_SESSION['role'] === 'admin') {
         header('Location: admin_add_post.php');
         exit;
     } else {
@@ -44,12 +44,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Verify password
         if (password_verify($user_password, $user['password'])) {
             // Password is correct, store user data in the session
-            $_SESSION['user_email'] = $user['email'];
-            $_SESSION['user_role'] = $user['user_type']; // Assuming user_type is the role (user/admin)
+            $_SESSION['email'] = $user['email'];
+            $_SESSION['role'] = $user['role']; // Assuming user_type is the role (user/admin)
             $_SESSION['id'] = $user['id']; // Store user ID
 
             // Redirect based on role
-            if ($user['user_type'] === 'admin') {
+            if ($user['role'] === 'admin') {
                 header('Location: admin_add_post.php');
             } else {
                 header('Location: user_edit_post.php');
@@ -73,11 +73,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="style.css">
+    <!--<link rel="stylesheet" href="style.css">-->
 </head>
 <body>
 <header>
-    <a href="Website.php" class="logo"><img src="logo.png" alt="logo"></a>
+   <!-- <a href="Website.php" class="logo"><img src="logo.png" alt="logo"></a>-->
 </header>
 
 <div class="login-container">

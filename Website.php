@@ -79,6 +79,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
         <div class="avatar">
             <img src="rev1.jpg" alt="User Avatar">
         </div>
+        <style>
+        .avatar {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 0.1rem solid #78828c;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+    </style>
         <ul>
             <?php
             if (isset($_SESSION['id'])) {

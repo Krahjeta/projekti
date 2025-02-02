@@ -88,8 +88,7 @@ session_start();  // Always call session_start() at the top
         <div class="carousel-track-container">
             <div class="carousel-track services-container" id="carousel-track"></div>
         </div>
-       </div>
-        <button class="carousel-btn next-btn">&#10095;</button>
+        <button class="carousel-btn next-btn">&#10095;</button>   
     </div>
     
     <!-- <div class="services-container">
@@ -149,19 +148,24 @@ session_start();  // Always call session_start() at the top
         </div>
     </div>  -->
     <div class="modal" id="rentModal">
-        <div class="modal-content">
-            <span class="close" id="closeRentModal">&times;</span>
-            <h2>Choose Rental Dates</h2>
-            <form action="proces_rental.php" method="POST">
-                <input type="hidden" name="car_id" id="carIdInput">
-                <label for="start_date">Start Date:</label>
-                <input type="date" name="start_date" required>
-                <label for="end_date">End Date:</label>
-                <input type="date" name="end_date" required>
-                <button type="submit">Confirm Rental</button>
-            </form>
-        </div>
+    <div class="modal-content">
+        <span class="close" id="closeRentModal">&times;</span>
+        <h2>Choose Rental Dates</h2>
+        <form method="POST" action="proces_rental.php">
+            <label for="car_id">Car ID:</label>
+            <input type="number" name="car_id" id="car_id" required readonly>
+
+            <label for="start_date">Start Date:</label>
+            <input type="date" name="start_date" id="start_date" required>
+
+            <label for="end_date">End Date:</label>
+            <input type="date" name="end_date" id="end_date" required>
+
+            <button type="submit">Rent Car</button>
+        </form>
     </div>
+</div>
+
 
     <div id="services"></div>
 
@@ -182,7 +186,7 @@ session_start();  // Always call session_start() at the top
             track.innerHTML = data;
             setupCarousel();
 
-            updataRentNowButton();
+            updateRentNowButton();
         })
         .catch(error => console.error('Error fetching posts:', error));
 
@@ -220,40 +224,54 @@ session_start();  // Always call session_start() at the top
             }
         }, { once: true });
     }
-function updateRentNowButtons() {
-        // Select all Rent Now buttons dynamically
-        const rentButtons = document.querySelectorAll('.carousel-container .rent-now-btn');
+    function updateRentNowButton() {
+    const rentButtons = document.querySelectorAll('.carousel-container .btn');
 
-        rentButtons.forEach(button => {
-            button.addEventListener("click", function (event) {
-                event.preventDefault();
-                const carId = this.getAttribute("data-car-id");
+    rentButtons.forEach(button => {
+        button.addEventListener("click", function (event) {
+            event.preventDefault();
+            const carId = this.getAttribute("data-car-id"); // Get the car ID from the button's data attribute
 
-                // Check if the user is logged in
-                fetch("check_login.php")
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.logged_in) {
-                            showRentModal(carId);  // Show rental dates modal
-                        } else {
-                            alert("Please log in first!");  // Prompt to log in
-                        }
-                    })
-                    .catch(error => console.error("Error:", error));
-            });
+            // Check if the user is logged in
+            fetch("check_login.php")
+                .then(response => response.json())
+                .then(data => {
+                    if (data.logged_in) {
+                        showRentModal(carId);  // Show rental dates modal and pass the car ID
+                    } else {
+                        alert("Please log in first!");  // Prompt to log in
+                    }
+                })
+                .catch(error => console.error("Error:", error));
         });
-    }
+    });
+}
 
-    // Function to display the rent modal with selected car
-    function showRentModal(carId) {
-        document.getElementById("carIdInput").value = carId;
-        document.getElementById("rentModal").style.display = "block";
-    }
+function showRentModal(carId) {
+    document.getElementById("car_id").value = carId;  // Automatically set the car_id input value
+    document.getElementById("rentModal").style.display = "block";  // Show the modal
+}
+
 
     // Close the rent modal
     document.getElementById("closeRentModal").addEventListener("click", function () {
         document.getElementById("rentModal").style.display = "none";
     });
+    // Open the modal and set the car ID when a "Rent Now" button is clicked
+document.querySelectorAll('.btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const carId = this.getAttribute('data-car-id'); // Get the car ID from the button
+        document.getElementById('car_id').value = carId; // Set the car ID in the modal form
+        document.getElementById('rentModal').style.display = 'block'; // Show the modal
+    });
+});
+
+// Close the modal when the close button is clicked
+document.getElementById('closeRentModal').addEventListener('click', function() {
+    document.getElementById('rentModal').style.display = 'none';
+});
+
+
 
     // Optional: Close the modal when clicking outside of it
     window.addEventListener("click", function(event) {

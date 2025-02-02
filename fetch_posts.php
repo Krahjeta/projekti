@@ -22,7 +22,8 @@ if ($result->num_rows > 0) {
                 <p>' . htmlspecialchars($row['year']) . '</p>
                 <h3>' . htmlspecialchars($row['name']) . '</h3>
                 <h2>$' . number_format($row['price'], 2) . ' | $' . number_format($row['monthly_price'], 2) . ' <span>/month</span></h2>
-                <a href="#" class="btn">Rent Now</a>
+
+                <a href="#" class="btn" data-car-id="' . $row['id'] . '">Rent Now</a>
               </div>';
     }
 } else {

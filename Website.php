@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
     $cpassword = $_POST['cpassword'];
-    $rolw = $_POST['role'];
+    $role = $_POST['role'];
 
     if ($password !== $cpassword) {
         $message[] = 'Passwords do not match';

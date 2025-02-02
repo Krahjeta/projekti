@@ -44,6 +44,25 @@ session_start();  // Always call session_start() at the top
         <div class="avatar">
             <img src="rev1.jpg" alt="User Avatar">
         </div>
+        <style>
+        .avatar {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 0.1rem solid #78828c;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+    </style>
         <ul>
             <?php
             if (isset($_SESSION['id'])) {
@@ -195,7 +214,7 @@ if (isset($message)) {
     <div class="modal-content">
         <span class="close" id="closeRentModal">&times;</span>
         <h2>Choose Rental Dates</h2>
-        <form method="POST" action="proces_rental.php">
+        <form id="rentalForm" method="POST">
             <label for="car_id">Car ID:</label>
             <input type="number" name="car_id" id="car_id" required readonly>
 
@@ -207,8 +226,12 @@ if (isset($message)) {
 
             <button type="submit">Rent Car</button>
         </form>
+
+        <!-- Message will appear here -->
+        <div id="rentalMessage"></div>
     </div>
 </div>
+
 
 
     <div id="services"></div>
@@ -223,7 +246,6 @@ if (isset($message)) {
 
     let currentSlide = 0;
 
-    // Fetch posts and insert them into the carousel
     fetch('fetch_posts.php')
         .then(response => response.text())
         .then(data => {
@@ -249,19 +271,17 @@ if (isset($message)) {
         const totalSlides = slides.length;
         currentSlide += direction;
 
-        // Smooth transition to next/previous slide
         track.style.transition = 'transform 0.5s ease-in-out';
         track.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
 
-        // Add event listener for instant reset
         track.addEventListener('transitionend', () => {
             if (currentSlide >= totalSlides) {
-                // Reset instantly to the first slide without transition
+              
                 track.style.transition = 'none';
                 currentSlide = 0;
                 track.style.transform = `translateX(0px)`;
             } else if (currentSlide < 0) {
-                // Reset instantly to the last slide without transition
+            
                 track.style.transition = 'none';
                 currentSlide = totalSlides - 1;
                 track.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
@@ -326,7 +346,35 @@ document.getElementById('closeRentModal').addEventListener('click', function() {
 });
 
 </script>
+<script>
+       document.getElementById('rentalForm').addEventListener('submit', function(event) {
+    event.preventDefault();  // Prevent default form submission
 
+    const formData = new FormData(this);
+
+    fetch('proces_rental.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Network response was not ok');
+        return response.json();  // Expect JSON response
+    })
+    .then(data => {
+        const messageDiv = document.getElementById('rentalMessage');
+        if (data.success) {
+            messageDiv.innerHTML = `<span style="color: green;">${data.message}</span>`;
+        } else {
+            messageDiv.innerHTML = `<span style="color: red;">${data.message}</span>`;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('rentalMessage').innerHTML = `<span style="color: red;">Error processing request.</span>`;
+    });
+});
+
+    </script>
 </section>
 <footer>
     <div class="copyright">

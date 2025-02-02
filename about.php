@@ -44,8 +44,13 @@ foreach ($content as $item) {
         <?php
         if (isset($_SESSION['id'])) {
            
+<<<<<<< HEAD
            // echo '<li><a href="logout.php">Logout</a></li>';
             //echo '<li><a href="dashboard_admin.php">Dashboard</a></li>';
+=======
+            echo '<li><a href="logout.php">Logout</a></li>';
+            echo '<li><a href="dashboard.php">Dashboard</a></li>';
+>>>>>>> 60a7fb10b3ef7a6181447002c32f6a29e1b67cbd
         } else {
       
             echo '<a href="#" class="sign-up" id="signUpBtn">Sign Up</a>';
@@ -58,22 +63,54 @@ foreach ($content as $item) {
         <div class="avatar">
             <img src="rev1.jpg" alt="User Avatar">
         </div>
+<<<<<<< HEAD
+=======
+        <style>
+        .avatar {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 0.1rem solid #78828c;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+    </style>
+>>>>>>> 60a7fb10b3ef7a6181447002c32f6a29e1b67cbd
         <ul>
             <?php
             if (isset($_SESSION['id'])) {
               
+<<<<<<< HEAD
                 echo '<li><a href="dashboard_admin.php">Dashboard</a></li>';
                 echo '<li><a href="logout.php">Log-out</a></li>';
             } else {
               
                // echo '<li><a href="login.php">Sign In</a></li>';
                // echo '<li><a href="signup.php">Sign Up</a></li>';
+=======
+                echo '<li><a href="dashboard.php">Dashboard</a></li>';
+                echo '<li><a href="logout.php">Log-out</a></li>';
+            } else {
+              
+                echo '<li><a href="login.php">Sign In</a></li>';
+                echo '<li><a href="signup.php">Sign Up</a></li>';
+>>>>>>> 60a7fb10b3ef7a6181447002c32f6a29e1b67cbd
             }
             ?>
         </ul>
     </li>
 </header>
 
+<<<<<<< HEAD
 <!-- Display messages -->
 <?php
 if (isset($message)) {
@@ -87,6 +124,8 @@ if (isset($message)) {
     }
 }
 ?>
+=======
+>>>>>>> 60a7fb10b3ef7a6181447002c32f6a29e1b67cbd
 <!--Krahjeta-->
    <div class="modal" id="signUpModal">
    <div class="modal-content">

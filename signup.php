@@ -6,6 +6,7 @@ require_once 'User.php';
 $database = new Database();
 $db = $database->connect();
 $user = new User($db);
+header('Content-Type: application/json');
 
 $response = [];
 

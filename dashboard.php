@@ -2,9 +2,9 @@
 session_start();
 
 require_once 'Database.php';
-//require_once 'Post.php';
 
-// Check if the user is logged in and has admin privileges
+
+
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     header('Location: login.php');
     exit;
@@ -14,10 +14,9 @@ $database = new Database();
 $db = $database->connect();
 $post = new Post($db);
 
-// Fetch all posts
 $posts = $post->getAllPosts();
 
-// Handle deletion
+
 if (isset($_POST['delete_post'])) {
     $post_id = $_POST['post_id'];
     if ($post->deletePost($post_id)) {
@@ -25,7 +24,7 @@ if (isset($_POST['delete_post'])) {
     } else {
         $message = "Failed to delete the post.";
     }
-    // Refresh the page to reflect changes
+
     header('Location: dashboard.php');
     exit;
 }
@@ -56,11 +55,11 @@ if (isset($_POST['delete_post'])) {
     <div class="header-btn">
         <?php
         if (isset($_SESSION['id'])) {
-            // User is logged in, show logout and dashboard options
+  
             echo '<li><a href="logout.php">Logout</a></li>';
             echo '<li><a href="dashboard.php">Dashboard</a></li>';
         } else {
-            // User is not logged in, show sign up and sign in options
+ 
             echo '<a href="#" class="sign-up">Sign Up</a>';
             echo '<a href="#" class="sign-in">Sign In</a>';
         }
@@ -74,11 +73,10 @@ if (isset($_POST['delete_post'])) {
         <ul>
             <?php
             if (isset($_SESSION['id'])) {
-                // If user is logged in, show Dashboard and Logout
                 echo '<li><a href="dashboard.php">Dashboard</a></li>';
                 echo '<li><a href="logout.php">Log-out</a></li>';
             } else {
-                // If not logged in, show Sign In and Sign Up options
+  
                 echo '<li><a href="login.php">Sign In</a></li>';
                 echo '<li><a href="signup.php">Sign Up</a></li>';
             }

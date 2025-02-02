@@ -165,15 +165,15 @@ if (isset($message)) {
             </select>
 
             <button type="submit" name="submit">Sign Up</button>
-            <!-- Notification Box -->
-            <div id="notificationBox" class="hidden"></div>
 
         </form>
     </div>
 </div>
+<div id="notification"></div>
+
 
 <script>
-    document.getElementById('signUpForm').addEventListener('submit', function(event) {
+document.getElementById('signUpForm').addEventListener('submit', function(event) {
     event.preventDefault(); 
 
     const formData = new FormData(this);
@@ -182,40 +182,46 @@ if (isset($message)) {
         method: 'POST',
         body: formData
     })
-    .then(response => response.json())
+    .then(response => response.json()) 
     .then(data => {
         if (data.status === 'success') {
-            showNotification('Sign-up successful!', false);
+    showNotification('Sign-up successful!', false);
+    document.getElementById('signUpModal').classList.remove('active');
+    document.getElementById('signUpForm').reset();
+}
+else {
+    showNotification(data.message, true);
+}
 
-            document.getElementById('signUpModal').classList.remove('active');
-
-            document.getElementById('signUpForm').reset();
-        } else {
-            showNotification(data.message, true);
-        }
     })
     .catch(error => {
-        console.error('Error:', error);
         showNotification('An error occurred. Please try again.', true);
     });
 });
 
-function showNotification(message, isError = false) {
-    const notificationBox = document.getElementById('notificationBox');
-    notificationBox.textContent = message;
 
-    if (isError) {
-        notificationBox.classList.add('error');
-    } else {
-        notificationBox.classList.remove('error');
-    }
+function showNotification(message, isError) {
+    const notificationElement = document.getElementById('notification');
 
-    notificationBox.style.display = 'block';
+    
+    notificationElement.innerText = message;
+
+    notificationElement.style.backgroundColor = isError ? 'red' : 'green';
+
+    notificationElement.style.display = 'block';
+    setTimeout(() => {
+        notificationElement.style.opacity = 1;
+    }, 10);  
 
     setTimeout(() => {
-        notificationBox.style.display = 'none';
-    }, 5000);
+        notificationElement.style.opacity = 0;
+        setTimeout(() => {
+            notificationElement.style.display = 'none';
+        }, 500); 
+    }, 3000);
 }
+
+
 
 </script>
 
@@ -276,6 +282,17 @@ function showNotification(message, isError = false) {
         </div>
     </div>
 </section>
+
+<script>
+// Prevent going back to the previous page after logout
+if (window.history && window.history.pushState) {
+    window.history.pushState(null, null, window.location.href);
+    window.onpopstate = function () {
+        window.history.go(1); // Prevent going back
+    };
+}
+</script>
+
 
 
 <!-- Footer -->

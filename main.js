@@ -14,20 +14,20 @@ document.addEventListener("DOMContentLoaded", () => {
         button.addEventListener("click", (event) => {
             event.preventDefault();
             const modal = document.querySelector(button.classList.contains("sign-up") ? "#signUpModal" : "#signInModal");
-            modal.classList.add("active");  // Add 'active' class instead of using 'display: flex'
+            modal.classList.add("active");  
         });
     });
 
     closeButtons.forEach((button) => {
         button.addEventListener("click", () => {
-            button.closest(".modal").classList.remove("active");  // Remove 'active' class to close modal
+            button.closest(".modal").classList.remove("active");  
         });
     });
 
     window.addEventListener("click", (event) => {
         modals.forEach((modal) => {
             if (event.target === modal) {
-                modal.classList.remove("active");  // Remove 'active' class to close modal
+                modal.classList.remove("active");  
             }
         });
 

@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Ensure the user is logged in (redirect if not)
 if (!isset($_SESSION['id'])) {
     header('Location: login.php');
     exit;
@@ -9,7 +8,7 @@ if (!isset($_SESSION['id'])) {
 
 $servername = "localhost";
 $username = "root";
-$password = ""; // Replace with your password
+$password = ""; 
 $dbname = "car_rental";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -18,13 +17,11 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Query to fetch all cars (posts)
 $sql = "SELECT * FROM cars";
 $result = $conn->query($sql);
 
-// Check if the query was successful
 if ($result === false) {
-    die("Error: " . $conn->error); // Display the error if the query failed
+    die("Error: " . $conn->error); 
 }
 ?>
 
@@ -36,18 +33,16 @@ if ($result === false) {
     <title>All Cars</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Cars Section */
         .services-container {
             display: flex;
-            flex-wrap: wrap; /* Ensures wrapping on small screens */
+            flex-wrap: wrap; 
             gap: 20px;
-            justify-content: center; /* Aligns items in the center */
+            justify-content: center; 
             padding: 20px;
         }
 
-        /* Individual Car Box */
         .box {
-            width: 300px; /* Set a fixed width for each car */
+            width: 300px; 
             background: #fff;
             border-radius: 10px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -60,7 +55,6 @@ if ($result === false) {
             transform: scale(1.05);
         }
 
-        /* Car Image */
         .box-img img {
             width: 100%;
             height: 180px;
@@ -68,7 +62,6 @@ if ($result === false) {
             border-radius: 10px;
         }
 
-        /* Car Info */
         .box h3 {
             font-size: 20px;
             margin: 10px 0;
@@ -84,7 +77,6 @@ if ($result === false) {
             color: #ff5a3c;
         }
 
-        /* Edit Button */
         .box .btn {
             display: inline-block;
             background: #ff5a3c;
@@ -118,11 +110,11 @@ if ($result === false) {
     <div class="header-btn">
         <?php
         if (isset($_SESSION['id'])) {
-            // User is logged in, show logout and dashboard options
+        
            // echo '<li><a href="logout.php">Logout</a></li>';
             //echo '<li><a href="user_dashboard.php">Dashboard</a></li>';
         } else {
-            // User is not logged in, show sign up and sign in options
+         
             echo '<a href="#" class="sign-up">Sign Up</a>';
             echo '<a href="#" class="sign-in">Sign In</a>';
         }
@@ -155,11 +147,11 @@ if ($result === false) {
         <ul>
             <?php
             if (isset($_SESSION['id'])) {
-                // If user is logged in, show Dashboard and Logout
+             
                 echo '<li><a href="user_dashboard.php">Dashboard</a></li>';
                 echo '<li><a href="logout.php">Log-out</a></li>';
             } else {
-                // If not logged in, show Sign In and Sign Up options
+             
                 //echo '<li><a href="login.php">Sign In</a></li>';
                // echo '<li><a href="signup.php">Sign Up</a></li>';
             }
@@ -174,9 +166,9 @@ if ($result === false) {
 <section class="services" id="services">
     <div class="services-container">
         <?php
-        // Check if there are any cars (posts)
+
         if ($result->num_rows > 0) {
-            // Output each car
+
             while ($row = $result->fetch_assoc()) {
                 echo "<div class='box'>";
                 echo "<div class='box-img'>";
@@ -194,6 +186,16 @@ if ($result === false) {
         ?>
     </div>
 </section>
+<script>
+
+if (window.history && window.history.pushState) {
+    window.history.pushState(null, null, window.location.href);
+    window.onpopstate = function () {
+        window.history.go(1);
+    };
+}
+</script>
+
 
 </body>
 </html>

@@ -1,7 +1,7 @@
 <?php 
 session_start();
 
-header('Content-Type: application/json'); // Ensure the response is JSON
+header('Content-Type: application/json'); 
 
 if (!isset($_SESSION['id'])) {
     echo json_encode(['success' => false, 'message' => 'Unauthorized access. Please log in first.']);
@@ -29,7 +29,7 @@ $car_id = $_POST['car_id'];
 $start_date = $_POST['start_date'];
 $end_date = $_POST['end_date'];
 
-// Validate if the car exists
+
 $sql = "SELECT id FROM cars WHERE id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $car_id);
@@ -42,8 +42,6 @@ if ($stmt->num_rows === 0) {
 }
 
 $stmt->close();
-
-// Check if the car is already rented during the selected period
 $sql = "SELECT id FROM rentals WHERE car_id = ? AND (
     (start_date BETWEEN ? AND ?) OR
     (end_date BETWEEN ? AND ?) OR
@@ -63,7 +61,7 @@ $stmt->close();
 
 $user_id = $_SESSION['id'];
 
-// Insert rental into the database
+
 $sql = "INSERT INTO rentals (car_id, user_id, start_date, end_date) VALUES (?, ?, ?, ?)";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("iiss", $car_id, $user_id, $start_date, $end_date);

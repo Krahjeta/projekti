@@ -1,16 +1,16 @@
 <?php
 session_start();
-// Ensure the admin is logged in
+
 if (!isset($_SESSION['role']) || !($_SESSION['role'] == 'admin') ) {
-    header('Location: login.php'); // Redirect to login page if not logged in
+    header('Location: login.php');
     exit;
 }
 
-// Handle form submission
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $servername = "localhost";
     $username = "root";
-    $password = ""; // Replace with your password
+    $password = ""; 
     $dbname = "car_rental";
 
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -19,14 +19,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Sanitize user input
+
     $image = $conn->real_escape_string($_POST['image']);
     $year = (int)$_POST['year'];
     $name = $conn->real_escape_string($_POST['name']);
     $price = (float)$_POST['price'];
     $monthly_price = (float)$_POST['monthly_price'];
 
-    // Insert the post into the database using prepared statements
     $stmt = $conn->prepare("INSERT INTO cars (image, year, name, price, monthly_price) VALUES (?, ?, ?, ?, ?)");
     $stmt->bind_param("sssd", $image, $year, $name, $price, $monthly_price);
 
@@ -45,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $servername = "localhost";
 $username = "root";
-$password = ""; // Replace with your password
+$password = ""; 
 $dbname = "car_rental";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -54,7 +53,6 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch rented cars and schedules
 $sql = "SELECT 
             c.name AS car_name, 
             c.year AS car_year, 
@@ -85,7 +83,6 @@ if ($result === false) {
     <title>Admin - Add Post</title>
     <link rel="stylesheet" href="style.css">
 
-   <!-- <a href="Website.php" class="logo"><img src="logo.png" alt="logo"></a>-->
 
     <div class="bx bx-menu" id="menu-icon"></div>
 

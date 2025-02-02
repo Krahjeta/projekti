@@ -2,9 +2,8 @@
 session_start();
 $error_message = "";
 
-// Check if the user is already logged in
 if (isset($_SESSION['id'])) {
-    // Redirect based on role
+
     if ($_SESSION['role'] === 'admin') {
         header('Location: admin_add_post.php');
         exit;
@@ -17,13 +16,13 @@ if (isset($_SESSION['id'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $servername = "localhost";
     $username = "root";
-    $password = ""; // Replace with your password
+    $password = ""; 
     $dbname = "car_rental";
 
-    // Create connection
+
     $conn = new mysqli($servername, $username, $password, $dbname);
 
-    // Check connection
+
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
@@ -31,24 +30,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $user_password = $_POST['password'];
 
-    // Prepare and bind the statement to avoid SQL injection
+
     $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
 
-    // Check if the user exists
+
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
 
-        // Verify password
         if (password_verify($user_password, $user['password'])) {
-            // Password is correct, store user data in the session
-            $_SESSION['email'] = $user['email'];
-            $_SESSION['role'] = $user['role']; // Assuming user_type is the role (user/admin)
-            $_SESSION['id'] = $user['id']; // Store user ID
 
-            // Redirect based on role
+            $_SESSION['email'] = $user['email'];
+            $_SESSION['role'] = $user['role']; 
+            $_SESSION['id'] = $user['id']; 
+
+
             if ($user['role'] === 'admin') {
                 header('Location: admin_add_post.php');
             } else {
@@ -73,11 +71,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <!--<link rel="stylesheet" href="style.css">-->
+
 </head>
 <body>
 <header>
-   <!-- <a href="Website.php" class="logo"><img src="logo.png" alt="logo"></a>-->
+
 </header>
 
 <div class="login-container">

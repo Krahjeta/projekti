@@ -5,7 +5,6 @@ require_once 'Database.php';
 $database = new Database();
 $conn = $database->connect();
 
-// Fetch content for the ride page
 $stmt = $conn->prepare("SELECT section_name, content FROM page_content WHERE page_name = 'ride'");
 $stmt->execute();
 
@@ -27,7 +26,6 @@ foreach ($content as $item) {
     <link rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
 
-    <!--<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>-->
 </head>
 <body>
 <div class="page-container">
@@ -47,11 +45,9 @@ foreach ($content as $item) {
     <div class="header-btn">
         <?php
         if (isset($_SESSION['id'])) {
-            // User is logged in, show logout and dashboard options
            // echo '<li><a href="logout.php">Logout</a></li>';
            // echo '<li><a href="dashboard.php">Dashboard</a></li>';
         } else {
-            // User is not logged in, show sign up and sign in options
             echo '<a href="#" class="sign-up">Sign Up</a>';
             echo '<a href="#" class="sign-in">Sign In</a>';
         }
@@ -84,11 +80,11 @@ foreach ($content as $item) {
         <ul>
             <?php
             if (isset($_SESSION['id'])) {
-                // If user is logged in, show Dashboard and Logout
+            
                 echo '<li><a href="admin_add_post.php">Dashboard</a></li>';
                 echo '<li><a href="logout.php">Log-out</a></li>';
             } else {
-                // If not logged in, show Sign In and Sign Up options
+                
               //  echo '<li><a href="login.php">Sign In</a></li>';
                // echo '<li><a href="signup.php">Sign Up</a></li>';
             }
@@ -97,51 +93,129 @@ foreach ($content as $item) {
     </li>
 </header>
 <!--Krahjeta-->
-   <div class="modal" id="signUpModal">
-   <div class="modal-content">
-    <span class="close" id="closeSignUp">&times;</span>
-    <h2>Sign Up</h2>
-    <form id="signUpForm">
-        <label for="signUpUsername">Username:</label>
-        <div class="input-container">
-        <input type="text" id="signUpUsername" placeholder="Enter Username" required>
-        <ion-icon name="person-outline" class="icon"></ion-icon>
-        </div>
-        <label for="signUpEmail">Email:</label>
-        <div class="input-container">
-        <input type="email" id="signUpEmail" placeholder="Enter Email" required>
-        <ion-icon name="mail-outline" class="icon"></ion-icon>
-        </div>
-        <label for="signUpPassword">Password:</label>
-        <div class="input-container">
-        <input type="password" id="signUpPassword" placeholder="Enter password" required>
-        <ion-icon name="lock-closed-outline" class="icon"></ion-icon>
-        </div>
-        <button type="submit">Sign Up</button>
-    </form>
-
-   </div>
-   </div>
-
-   <div class="modal" id="signInModal">
+  <!-- Sign Up Modal -->
+<div class="modal" id="signUpModal">
     <div class="modal-content">
-     <span class="close" id="closeSignIn">&times;</span>
-     <h2>Sign In</h2>
-     <form id="signInForm">
-        <label for="signInEmail">Email:</label>
-        <div class="input-container">
-        <input type="email" id="signInEmail" placeholder="Enter Email" required>
-        <ion-icon name="mail-outline" class="icon"></ion-icon>
-        </div>
-        <label for="signInPassword">Password:</label>
-        <div class="input-container">
-        <input type="password" id="signInPassword" placeholder="Enter password" required>
-        <ion-icon name="lock-closed-outline" class="icon"></ion-icon>
-        </div>
-        <button type="submit">Sign In</button>
-     </form>
+        <span class="close" id="closeSignUp">&times;</span>
+        <h2>Sign Up</h2>
+        <form id="signUpForm" method="POST">
+            <label for="signUpUsername">Username:</label>
+            <div class="input-container">
+                <ion-icon name="person-outline" class="icon"></ion-icon>
+                <input type="text" id="signUpUsername" name="username" placeholder="Enter Username" required>
+            </div>
+
+            <label for="signUpEmail">Email:</label>
+            <div class="input-container">
+                <ion-icon name="mail-outline" class="icon"></ion-icon>
+                <input type="email" id="signUpEmail" name="email" placeholder="Enter Email" required>
+            </div>
+
+            <label for="signUpPassword">Password:</label>
+            <div class="input-container">
+                <ion-icon name="lock-closed-outline" class="icon"></ion-icon>
+                <input type="password" id="signUpPassword" name="password" placeholder="Enter Password" required>
+            </div>
+
+            <label for="signUpConfirmPassword">Confirm Password:</label>
+            <div class="input-container">
+                <ion-icon name="lock-closed-outline" class="icon"></ion-icon>
+                <input type="password" id="signUpConfirmPassword" name="cpassword" placeholder="Confirm Your Password" required>
+            </div>
+
+            <label for="userType">User Type:</label>
+            <select name="role" id="role" class="box" required>
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+            </select>
+
+            <button type="submit" name="submit">Sign Up</button>
+           
+
+        </form>
     </div>
-   </div>
+</div>
+<div id="notification"></div>
+
+
+<script>
+document.getElementById('signUpForm').addEventListener('submit', function(event) {
+    event.preventDefault(); 
+
+    const formData = new FormData(this);
+
+    fetch('signup.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())  
+    .then(data => {
+        if (data.status === 'success') {
+    showNotification('Sign-up successful!', false);
+    document.getElementById('signUpModal').classList.remove('active');
+    document.getElementById('signUpForm').reset();
+}
+else {
+    showNotification(data.message, true);
+}
+
+    })
+    .catch(error => {
+        showNotification('An error occurred. Please try again.', true);
+    });
+});
+
+
+function showNotification(message, isError) {
+    const notificationElement = document.getElementById('notification');
+
+    notificationElement.innerText = message;
+
+    notificationElement.style.backgroundColor = isError ? 'red' : 'green';
+
+    
+    notificationElement.style.display = 'block';
+    setTimeout(() => {
+        notificationElement.style.opacity = 1;
+    }, 10);  
+
+  
+    setTimeout(() => {
+        notificationElement.style.opacity = 0;
+        setTimeout(() => {
+            notificationElement.style.display = 'none';
+        }, 500); 
+    }, 3000); 
+}
+
+
+
+</script>
+
+
+<!-- Sign In Modal -->
+<?php if (!isset($_SESSION['id'])): ?>
+<div class="modal" id="signInModal">
+    <div class="modal-content">
+        <span class="close" id="closeSignIn">&times;</span>
+        <h2>Sign In</h2>
+        <form id="signInForm" method="POST" action="login.php">
+            <label for="signInEmail">Email:</label>
+            <div class="input-container">
+                <input type="email" id="signInEmail" name="email" placeholder="Enter Email" required>
+                <ion-icon name="mail-outline" class="icon"></ion-icon>
+            </div>
+            <label for="signInPassword">Password:</label>
+            <div class="input-container">
+                <input type="password" id="signInPassword" name="password" placeholder="Enter Password" required>
+                <ion-icon name="lock-closed-outline" class="icon"></ion-icon>
+            </div>
+            <button type="submit">Sign In</button>
+            <?php if (isset($error_message)) echo "<p>$error_message</p>"; ?>
+        </form>
+    </div>
+</div>
+<?php endif; ?>
    <div class="content">
    <section class="ride" id="ride">
     <div class="heading">

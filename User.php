@@ -7,32 +7,41 @@ class User {
         $this->conn = $db;
     }
 
-    // Register method to insert user into the database
+    
     public function register($username, $email, $password, $role) {
+
+        $checkQuery = "SELECT id FROM " . $this->table . " WHERE email = :email";
+        $stmt = $this->conn->prepare($checkQuery);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+    
+    
+        if ($stmt->rowCount() > 0) {
+            return ['status' => 'error', 'message' => 'Email already exists'];  // Return error as JSON
+        }
+    
         $query = "INSERT INTO " . $this->table . " (username, email, password, role) VALUES (:username, :email, :password, :role)";
         $stmt = $this->conn->prepare($query);
-
+    
+        
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
+    
         $stmt->bindParam(':username', $username);
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':password', $hashedPassword);
         $stmt->bindParam(':role', $role);
-
+    
         if ($stmt->execute()) {
-            // After successful registration, check the role and redirect the user
-            if ($role === 'admin') {
-                header("Location: admin_add_post.php"); // Redirect to the admin page
-            } else {
-                header("Location: user_dashboard.php"); // Redirect to the user dashboard
-            }
-            exit;
+            return ['status' => 'success', 'message' => 'Sign-up successful!'];  
         }
-
-        return false;  // Return false if the registration fails
+    
+        return ['status' => 'error', 'message' => 'Sign-up failed. Please try again.'];
     }
+    
+    
+    
 
-    // Login method to authenticate users
+  
     public function login($email, $password) {
         $query = "SELECT * FROM " . $this->table . " WHERE email = :email";
         $stmt = $this->conn->prepare($query);

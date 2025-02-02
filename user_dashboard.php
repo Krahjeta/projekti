@@ -38,7 +38,6 @@ $result = $stmt->get_result();
     <title>User Dashboard</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* General body styling */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -47,7 +46,6 @@ $result = $stmt->get_result();
             color: #333;
         }
 
-        /* Header styling */
         header {
             background-color: #4CAF50;
             color: white;
@@ -71,7 +69,7 @@ $result = $stmt->get_result();
             text-decoration: underline;
         }
 
-        /* Navbar styling */
+
         .navbar {
             display: flex;
             justify-content: center;
@@ -93,14 +91,14 @@ $result = $stmt->get_result();
             text-decoration: underline;
         }
 
-        /* Main content styling */
+    
         h2 {
             text-align: center;
             margin-top: 20px;
             font-size: 1.8em;
         }
 
-        /* Table styling */
+ 
         table {
             width: 80%;
             margin: 20px auto;
@@ -131,11 +129,11 @@ $result = $stmt->get_result();
 </head>
 <body>
 
-    <!-- Header Section with Navbar -->
+
     <header>
         <h1>Welcome to your Dashboard</h1>
         <a href="logout.php">Log-out</a>
-        <!-- Navbar added here -->
+      
         <ul class="navbar">
             <li><a href="Website.php">Home</a></li>
             <li><a href="ride.php">Ride</a></li>

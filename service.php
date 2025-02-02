@@ -1,5 +1,5 @@
 <?php
-session_start();  // Always call session_start() at the top
+session_start(); 
 ?>
 
 <!DOCTYPE html>
@@ -62,12 +62,32 @@ session_start();  // Always call session_start() at the top
             object-fit: cover;
             display: block;
         }
+        .modal {
+    display: none; 
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); 
+    z-index: 9999; 
+}
+
+.modal-content {
+    position: relative; 
+    margin: 15% auto;
+    padding: 20px;
+    background: #fff;
+    width: 80%;
+    max-width: 500px;
+    z-index: 10000; 
+}
     </style>
         <ul>
             <?php
             if (isset($_SESSION['id'])) {
               
-                echo '<li><a href="dashboard_admin.php">Dashboard</a></li>';
+                echo '<li><a href="admin_add_post.php">Dashboard</a></li>';
                 echo '<li><a href="logout.php">Log-out</a></li>';
             } else {
               
@@ -93,53 +113,134 @@ if (isset($message)) {
 }
 ?>
 
+
 <!--Krahjeta-->
-   <div class="modal" id="signUpModal">
-   <div class="modal-content">
-    <span class="close" id="closeSignUp">&times;</span>
-    <h2>Sign Up</h2>
-    <form id="signUpForm">
-        <label for="signUpUsername">Username:</label>
-        <div class="input-container">
-        <input type="text" id="signUpUsername" placeholder="Enter Username" required>
-        <ion-icon name="person-outline" class="icon"></ion-icon>
-        </div>
-        <label for="signUpEmail">Email:</label>
-        <div class="input-container">
-        <input type="email" id="signUpEmail" placeholder="Enter Email" required>
-        <ion-icon name="mail-outline" class="icon"></ion-icon>
-        </div>
-        <label for="signUpPassword">Password:</label>
-        <div class="input-container">
-        <input type="password" id="signUpPassword" placeholder="Enter password" required>
-        <ion-icon name="lock-closed-outline" class="icon"></ion-icon>
-        </div>
-        <button type="submit">Sign Up</button>
-    </form>
-
-   </div>
-   </div>
-
-   <div class="modal" id="signInModal">
+   <!-- Sign Up Modal -->
+<div class="modal" id="signUpModal">
     <div class="modal-content">
-     <span class="close" id="closeSignIn">&times;</span>
-     <h2>Sign In</h2>
-     <form id="signInForm">
-        <label for="signInEmail">Email:</label>
-        <div class="input-container">
-        <input type="email" id="signInEmail" placeholder="Enter Email" required>
-        <ion-icon name="mail-outline" class="icon"></ion-icon>
-        </div>
-        <label for="signInPassword">Password:</label>
-        <div class="input-container">
-        <input type="password" id="signInPassword" placeholder="Enter password" required>
-        <ion-icon name="lock-closed-outline" class="icon"></ion-icon>
-        </div>
-        <button type="submit">Sign In</button>
-     </form>
-    </div>
-   </div>
+        <span class="close" id="closeSignUp">&times;</span>
+        <h2>Sign Up</h2>
+        <form id="signUpForm" method="POST">
+            <label for="signUpUsername">Username:</label>
+            <div class="input-container">
+                <ion-icon name="person-outline" class="icon"></ion-icon>
+                <input type="text" id="signUpUsername" name="username" placeholder="Enter Username" required>
+            </div>
 
+            <label for="signUpEmail">Email:</label>
+            <div class="input-container">
+                <ion-icon name="mail-outline" class="icon"></ion-icon>
+                <input type="email" id="signUpEmail" name="email" placeholder="Enter Email" required>
+            </div>
+
+            <label for="signUpPassword">Password:</label>
+            <div class="input-container">
+                <ion-icon name="lock-closed-outline" class="icon"></ion-icon>
+                <input type="password" id="signUpPassword" name="password" placeholder="Enter Password" required>
+            </div>
+
+            <label for="signUpConfirmPassword">Confirm Password:</label>
+            <div class="input-container">
+                <ion-icon name="lock-closed-outline" class="icon"></ion-icon>
+                <input type="password" id="signUpConfirmPassword" name="cpassword" placeholder="Confirm Your Password" required>
+            </div>
+
+            <label for="userType">User Type:</label>
+            <select name="role" id="role" class="box" required>
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+            </select>
+
+            <button type="submit" name="submit">Sign Up</button>
+            <!-- Notification Box -->
+            <!-- <div id="notification"></div> -->
+
+        </form>
+    </div>
+</div>
+<div id="notification"></div>
+
+
+<script>
+document.getElementById('signUpForm').addEventListener('submit', function(event) {
+    event.preventDefault(); 
+
+    const formData = new FormData(this);
+
+    fetch('signup.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())  // Parse JSON response
+    .then(data => {
+        if (data.status === 'success') {
+    showNotification('Sign-up successful!', false);
+    document.getElementById('signUpModal').classList.remove('active');
+    document.getElementById('signUpForm').reset();
+}
+else {
+    showNotification(data.message, true);
+}
+
+    })
+    .catch(error => {
+        showNotification('An error occurred. Please try again.', true);
+    });
+});
+
+
+function showNotification(message, isError) {
+    const notificationElement = document.getElementById('notification');
+
+    // Set the message
+    notificationElement.innerText = message;
+
+    // Set the background color depending on error or success
+    notificationElement.style.backgroundColor = isError ? 'red' : 'green';
+
+    // Show the notification with fade-in effect
+    notificationElement.style.display = 'block';
+    setTimeout(() => {
+        notificationElement.style.opacity = 1;
+    }, 10);  // Adding a small delay to ensure the display change takes effect
+
+    // Hide the notification after 3 seconds
+    setTimeout(() => {
+        notificationElement.style.opacity = 0;
+        setTimeout(() => {
+            notificationElement.style.display = 'none';
+        }, 500); // Wait for opacity to fade out before hiding the element
+    }, 3000); // Hide after 3 seconds
+}
+
+
+
+</script>
+
+
+<!-- Sign In Modal -->
+<?php if (!isset($_SESSION['id'])): ?>
+<div class="modal" id="signInModal">
+    <div class="modal-content">
+        <span class="close" id="closeSignIn">&times;</span>
+        <h2>Sign In</h2>
+        <form id="signInForm" method="POST" action="login.php">
+            <label for="signInEmail">Email:</label>
+            <div class="input-container">
+                <input type="email" id="signInEmail" name="email" placeholder="Enter Email" required>
+                <ion-icon name="mail-outline" class="icon"></ion-icon>
+            </div>
+            <label for="signInPassword">Password:</label>
+            <div class="input-container">
+                <input type="password" id="signInPassword" name="password" placeholder="Enter Password" required>
+                <ion-icon name="lock-closed-outline" class="icon"></ion-icon>
+            </div>
+            <button type="submit">Sign In</button>
+            <?php if (isset($error_message)) echo "<p>$error_message</p>"; ?>
+        </form>
+    </div>
+</div>
+<?php endif; ?>
    <!--elzaservices-->
    <section class="services" id="services">
     <div class="heading">

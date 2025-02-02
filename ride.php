@@ -48,8 +48,8 @@ foreach ($content as $item) {
         <?php
         if (isset($_SESSION['id'])) {
             // User is logged in, show logout and dashboard options
-            echo '<li><a href="logout.php">Logout</a></li>';
-            echo '<li><a href="dashboard.php">Dashboard</a></li>';
+           // echo '<li><a href="logout.php">Logout</a></li>';
+           // echo '<li><a href="dashboard.php">Dashboard</a></li>';
         } else {
             // User is not logged in, show sign up and sign in options
             echo '<a href="#" class="sign-up">Sign Up</a>';
@@ -66,12 +66,12 @@ foreach ($content as $item) {
             <?php
             if (isset($_SESSION['id'])) {
                 // If user is logged in, show Dashboard and Logout
-                echo '<li><a href="dashboard.php">Dashboard</a></li>';
+                echo '<li><a href="admin_add_post.php">Dashboard</a></li>';
                 echo '<li><a href="logout.php">Log-out</a></li>';
             } else {
                 // If not logged in, show Sign In and Sign Up options
-                echo '<li><a href="login.php">Sign In</a></li>';
-                echo '<li><a href="signup.php">Sign Up</a></li>';
+              //  echo '<li><a href="login.php">Sign In</a></li>';
+               // echo '<li><a href="signup.php">Sign Up</a></li>';
             }
             ?>
         </ul>
@@ -148,6 +148,73 @@ foreach ($content as $item) {
     </div>
 </section>
    </div>
+   <section class="featured-cars" id="featured-cars"> 
+    <div class="heading">
+        <span>Top Picks</span>
+        <h1>Featured Rental Cars</h1>
+    </div>
+    <div class="featured-container">
+        <div class="car-box">
+            <img src="images/toyota-corolla.jpg" alt="Car 1">
+            <h3>Toyota Corolla</h3>
+            <p>Reliable and fuel-efficient sedan.</p>
+            <h2>$40/day</h2>
+        </div>
+        <div class="car-box">
+            <img src="images/Ford-Mustang.jpg" alt="Car 2">
+            <h3>Ford Mustang</h3>
+            <p>Powerful and stylish sports car.</p>
+            <h2>$90/day</h2>
+        </div>
+        <div class="car-box">
+            <img src="images/Jeep-Wrangler.jpg" alt="Car 3">
+            <h3>Jeep Wrangler</h3>
+            <p>Perfect for off-road adventures.</p>
+            <h2>$75/day</h2>
+        </div>
+    </div>
+</section>
+
+<style>
+    .featured-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        padding: 20px;
+    }
+    .car-box {
+        width: 300px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        padding: 15px;
+        transition: transform 0.3s ease-in-out;
+    }
+    .car-box:hover {
+        transform: scale(1.05);
+    }
+    .car-box img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+    .car-box h3 {
+        margin: 10px 0;
+        font-size: 20px;
+    }
+    .car-box p {
+        color: #666;
+        font-size: 14px;
+    }
+    .car-box h2 {
+        color: #ff5a3c;
+        font-size: 18px;
+    }
+</style>
+
 <footer>
     <div class="copyright">
         <p>© 2024 Car Rental. All rights reserved.</p>

@@ -65,8 +65,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
         <?php
         if (isset($_SESSION['id'])) {
            
-            echo '<li><a href="logout.php">Logout</a></li>';
-            echo '<li><a href="dashboard_admin.php">Dashboard</a></li>';
+           // echo '<li><a href="logout.php">Logout</a></li>';
+            //echo '<li><a href="dashboard_admin.php">Dashboard</a></li>';
         } else {
       
             echo '<a href="#" class="sign-up" id="signUpBtn">Sign Up</a>';
@@ -87,8 +87,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
                 echo '<li><a href="logout.php">Log-out</a></li>';
             } else {
               
-                echo '<li><a href="login.php">Sign In</a></li>';
-                echo '<li><a href="signup.php">Sign Up</a></li>';
+                //echo '<li><a href="login.php">Sign In</a></li>';
+                //echo '<li><a href="signup.php">Sign Up</a></li>';
             }
             ?>
         </ul>

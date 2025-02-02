@@ -39,11 +39,54 @@ foreach ($content as $item) {
             <li><a href="about.php">About</a></li>
             <li><a href="reviews.php">Reviews</a></li>
         </ul>
+        
         <div class="header-btn">
-            <a href="#" class="sign-up">Sign Up</a>
-            <a href="#" class="sign-in">Sign In</a>
+        <?php
+        if (isset($_SESSION['id'])) {
+           
+           // echo '<li><a href="logout.php">Logout</a></li>';
+            //echo '<li><a href="dashboard_admin.php">Dashboard</a></li>';
+        } else {
+      
+            echo '<a href="#" class="sign-up" id="signUpBtn">Sign Up</a>';
+            echo '<a href="#" class="sign-in" id="signInBtn">Sign In</a>';
+        }
+        ?>
+    </div>
+
+    <li class="nav-profil">
+        <div class="avatar">
+            <img src="rev1.jpg" alt="User Avatar">
         </div>
-    </header>
+        <ul>
+            <?php
+            if (isset($_SESSION['id'])) {
+              
+                echo '<li><a href="dashboard_admin.php">Dashboard</a></li>';
+                echo '<li><a href="logout.php">Log-out</a></li>';
+            } else {
+              
+               // echo '<li><a href="login.php">Sign In</a></li>';
+               // echo '<li><a href="signup.php">Sign Up</a></li>';
+            }
+            ?>
+        </ul>
+    </li>
+</header>
+
+<!-- Display messages -->
+<?php
+if (isset($message)) {
+    foreach ($message as $msg) {
+        echo '
+        <div class="message">
+        <span>' . htmlspecialchars($msg) . '</span>
+        <i class="fas fa-times" onclick="this.parentElement.remove();"></i>
+        </div>
+        ';
+    }
+}
+?>
 <!--Krahjeta-->
    <div class="modal" id="signUpModal">
    <div class="modal-content">

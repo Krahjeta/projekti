@@ -35,6 +35,71 @@ if ($result === false) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Cars</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Cars Section */
+        .services-container {
+            display: flex;
+            flex-wrap: wrap; /* Ensures wrapping on small screens */
+            gap: 20px;
+            justify-content: center; /* Aligns items in the center */
+            padding: 20px;
+        }
+
+        /* Individual Car Box */
+        .box {
+            width: 300px; /* Set a fixed width for each car */
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .box:hover {
+            transform: scale(1.05);
+        }
+
+        /* Car Image */
+        .box-img img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        /* Car Info */
+        .box h3 {
+            font-size: 20px;
+            margin: 10px 0;
+        }
+
+        .box p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .box h2 {
+            font-size: 18px;
+            color: #ff5a3c;
+        }
+
+        /* Edit Button */
+        .box .btn {
+            display: inline-block;
+            background: #ff5a3c;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        .box .btn:hover {
+            background: #e04830;
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -54,8 +119,8 @@ if ($result === false) {
         <?php
         if (isset($_SESSION['id'])) {
             // User is logged in, show logout and dashboard options
-            echo '<li><a href="logout.php">Logout</a></li>';
-            echo '<li><a href="dashboard.php">Dashboard</a></li>';
+           // echo '<li><a href="logout.php">Logout</a></li>';
+            //echo '<li><a href="user_dashboard.php">Dashboard</a></li>';
         } else {
             // User is not logged in, show sign up and sign in options
             echo '<a href="#" class="sign-up">Sign Up</a>';
@@ -72,12 +137,12 @@ if ($result === false) {
             <?php
             if (isset($_SESSION['id'])) {
                 // If user is logged in, show Dashboard and Logout
-                echo '<li><a href="dashboard.php">Dashboard</a></li>';
+                echo '<li><a href="user_dashboard.php">Dashboard</a></li>';
                 echo '<li><a href="logout.php">Log-out</a></li>';
             } else {
                 // If not logged in, show Sign In and Sign Up options
-                echo '<li><a href="login.php">Sign In</a></li>';
-                echo '<li><a href="signup.php">Sign Up</a></li>';
+                //echo '<li><a href="login.php">Sign In</a></li>';
+               // echo '<li><a href="signup.php">Sign Up</a></li>';
             }
             ?>
         </ul>

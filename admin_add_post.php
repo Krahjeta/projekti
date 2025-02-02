@@ -152,6 +152,7 @@ if ($result === false) {
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            margin-top: 20px;
         }
 
         .dashboard-header h1 {
@@ -173,6 +174,16 @@ if ($result === false) {
             padding-top: 50px;
             padding-bottom: 50px;
         }
+        .dashboard-header a.logout {
+    position: absolute;
+    /*top: 8px;*/
+    right: 20px;
+    background-color: #1d33f1;
+}
+
+.dashboard-header a.logout:hover {
+    background-color: #cc0000;
+}
     </style>
 
 </head>
@@ -207,7 +218,7 @@ if ($result === false) {
     <header>
         <div class="dashboard-header">
             <h1>Admin Dashboard</h1>
-            <a href="logout.php">Logout</a>
+            <a href="logout.php" class="logout">Logout</a>
         </div>
     </header>
 

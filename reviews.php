@@ -44,8 +44,8 @@ foreach ($pageContent as $item) {
         <?php
         if (isset($_SESSION['id'])) {
             // User is logged in, show logout and dashboard options
-            echo '<li><a href="logout.php">Logout</a></li>';
-            echo '<li><a href="dashboard.php">Dashboard</a></li>';
+           // echo '<li><a href="logout.php">Logout</a></li>';
+           // echo '<li><a href="dashboard.php">Dashboard</a></li>';
         } else {
             // User is not logged in, show sign up and sign in options
             echo '<a href="#" class="sign-up">Sign Up</a>';
@@ -62,12 +62,12 @@ foreach ($pageContent as $item) {
             <?php
             if (isset($_SESSION['id'])) {
                 // If user is logged in, show Dashboard and Logout
-                echo '<li><a href="dashboard.php">Dashboard</a></li>';
+                echo '<li><a href="admin_add_post.php">Dashboard</a></li>';
                 echo '<li><a href="logout.php">Log-out</a></li>';
             } else {
                 // If not logged in, show Sign In and Sign Up options
-                echo '<li><a href="login.php">Sign In</a></li>';
-                echo '<li><a href="signup.php">Sign Up</a></li>';
+                //echo '<li><a href="login.php">Sign In</a></li>';
+               // echo '<li><a href="signup.php">Sign Up</a></li>';
             }
             ?>
         </ul>

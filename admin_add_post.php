@@ -1,7 +1,7 @@
 <?php
 session_start();
 // Ensure the admin is logged in
-if (!isset($_SESSION['role']) ) {
+if (!isset($_SESSION['role']) || !($_SESSION['role'] == 'admin') ) {
     header('Location: login.php'); // Redirect to login page if not logged in
     exit;
 }

@@ -58,6 +58,19 @@ foreach ($pageContent as $item) {
         <div class="avatar">
             <img src="rev1.jpg" alt="User Avatar">
         </div>
+        <ul>
+            <?php
+            if (isset($_SESSION['id'])) {
+              
+                echo '<li><a href="dashboard_admin.php">Dashboard</a></li>';
+                echo '<li><a href="logout.php">Log-out</a></li>';
+            } else {
+              
+               // echo '<li><a href="login.php">Sign In</a></li>';
+               // echo '<li><a href="signup.php">Sign Up</a></li>';
+            }
+            ?>
+        </ul>
         <style>
         .avatar {
             width: 2.5rem;
